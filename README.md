@@ -1,4 +1,4 @@
-# event-management-system-frontend
+# senyum-pondok-frontend
 
 ## Project setup
 ```
