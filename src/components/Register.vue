@@ -19,113 +19,121 @@
                         <p class="greeting-2">
                             Selamat bergabung di Pondok Senyum Indonesia, rumah bagi adik-adik istimewa dari pelosok Jawa Barat
                         </p>
-                        <b-form @submit="onSubmit" @reset="onReset" v-if="show">
-                            <b-form-group 
-                            id="input-group-1"
-                            >
-                            <b-form-input 
-                                id="input-1" 
-                                v-model="form.name" 
-                                required 
-                                placeholder="Nama lengkap Anda *"
-                                style="border-radius: 3px; font-size: 0.9rem;"
+                        <b-form @submit="onSubmit" v-if="show">
+                            <div class="state-0" v-if="!state_form">
+                                <b-form-group 
+                                id="input-group-1"
                                 >
-                            </b-form-input>
-                            </b-form-group>
+                                <b-form-input 
+                                    id="input-1" 
+                                    v-model="form.name" 
+                                    required 
+                                    placeholder="Nama lengkap Anda *"
+                                    style="border-radius: 3px; font-size: 0.9rem;"
+                                    >
+                                </b-form-input>
+                                </b-form-group>
 
-                            <b-form-group 
-                            id="input-group-2"
-                            >
-                            <b-form-input 
-                                id="input-2" 
-                                v-model="form.whatsapp" 
-                                required 
-                                placeholder="Nomor WhatsApp Anda *"
-                                style="border-radius: 3px; font-size: 0.9rem;"
+                                <b-form-group 
+                                id="input-group-2"
                                 >
-                            </b-form-input>
-                            </b-form-group>
+                                <b-form-input 
+                                    id="input-2" 
+                                    v-model="form.whatsapp" 
+                                    required
+                                    :state="state_name"
+                                    placeholder="Nomor WhatsApp Anda *"
+                                    style="border-radius: 3px; font-size: 0.9rem;"
+                                    >
+                                </b-form-input>
+                                </b-form-group>
 
-                            <b-form-group 
-                            id="input-group-3"
-                            >
-                            <b-form-input 
-                                id="input-3" 
-                                v-model="form.address" 
-                                required 
-                                placeholder="Alamat rumah Anda *"
-                                style="border-radius: 3px; font-size: 0.9rem;"
+                                <b-form-group 
+                                id="input-group-3"
                                 >
-                            </b-form-input>
-                            </b-form-group>
+                                <b-form-input 
+                                    id="input-3" 
+                                    v-model="form.address" 
+                                    required 
+                                    placeholder="Alamat rumah Anda *"
+                                    style="border-radius: 3px; font-size: 0.9rem;"
+                                    >
+                                </b-form-input>
+                                </b-form-group>
 
-                            <b-form-group 
-                            id="input-group-4"
-                            >
-                            <b-form-input 
-                                id="input-4" 
-                                v-model="form.email"
-                                placeholder="Alamat email Anda"
-                                style="border-radius: 3px; font-size: 0.9rem;"
+                                <b-form-group 
+                                id="input-group-4"
                                 >
-                            </b-form-input>
+                                <b-form-input 
+                                    id="input-4" 
+                                    v-model="form.email"
+                                    placeholder="Alamat email Anda"
+                                    style="border-radius: 3px; font-size: 0.9rem;"
+                                    >
+                                </b-form-input>
 
-                            </b-form-group>
-                            <b-form-group 
-                            id="input-group-5"
-                            >
-                            <b-form-input 
-                                id="input-5" 
-                                v-model="form.instagram"
-                                placeholder="ID instagram Anda"
-                                style="border-radius: 3px; font-size: 0.9rem;"
+                                </b-form-group>
+                                <b-form-group 
+                                id="input-group-5"
                                 >
-                            </b-form-input>
-                            </b-form-group>
+                                <b-form-input 
+                                    id="input-5" 
+                                    v-model="form.instagram"
+                                    placeholder="ID instagram Anda"
+                                    style="border-radius: 3px; font-size: 0.9rem;"
+                                    >
+                                </b-form-input>
+                                </b-form-group>
 
-                            <b-form-group 
-                            id="input-group-6"
-                            >
-                            <b-form-select 
-                                id="input-6" 
-                                v-model="form.infaq" 
-                                :options="infaq" 
-                                required
-                                style="border-radius: 3px; font-size: 0.9rem;"
+                                <b-form-group 
+                                id="input-group-6"
                                 >
-                            </b-form-select>
-                            </b-form-group>
+                                <b-form-select 
+                                    id="input-6" 
+                                    v-model="form.infaq" 
+                                    :options="infaq" 
+                                    required
+                                    style="border-radius: 3px; font-size: 0.9rem;"
+                                    >
+                                </b-form-select>
+                                </b-form-group>
+                                
+                                <b-button block type="submit" style="background-color: #d71149; border-color:  #d71149; border-radius: 3px">DAFTAR</b-button>
+                            </div>
 
-                            <b-form-group
-                            label="Tentukan password demi keamanan akun Anda"
-                            id="input-group-7"
-                            >
-                            <b-form-input 
-                                id="input-7"
-                                v-model="form.password" 
-                                required
-                                type="password"
-                                placeholder="Password"
-                                style="border-radius: 3px; font-size: 0.9rem;"
+                            <div class="state-1" v-if="state_form">
+                                <b-form-group
+                                label="Tentukan password demi keamanan akun Anda"
+                                id="input-group-7"
                                 >
-                            </b-form-input>
-                            </b-form-group>
+                                <b-form-input 
+                                    id="input-7"
+                                    v-model="form.password" 
+                                    required
+                                    type="password"
+                                    placeholder="Password"
+                                    style="border-radius: 3px; font-size: 0.9rem;"
+                                    >
+                                </b-form-input>
+                                </b-form-group>
 
-                            <b-form-group
-                            id="input-group-7"
-                            >
-                            <b-form-input 
-                                id="input-7"
-                                v-model="form.confirm_password" 
-                                required
-                                type="password"
-                                placeholder="Confirm password"
-                                style="border-radius: 3px; font-size: 0.9rem;"
+                                <b-form-group
+                                id="input-group-8"
                                 >
-                            </b-form-input>
-                            </b-form-group>
+                                <b-form-input 
+                                    id="input-8"
+                                    v-model="form.confirm_password" 
+                                    required
+                                    type="password"
+                                    placeholder="Confirm password"
+                                    style="border-radius: 3px; font-size: 0.9rem;"
+                                    >
+                                </b-form-input>
+                                </b-form-group>
 
-                            <b-button block type="submit" style="background-color: #d71149; border-color:  #d71149; border-radius: 3px">DAFTAR</b-button>
+                                <b-button block type="submit" style="background-color: #d71149; border-color:  #d71149; border-radius: 3px">SELESAI</b-button>
+
+                            </div>
 
                             <p class="link-login-desc">
                                 Sudah punya akun? <a class="link-login" href="/login">Masuk</a>
@@ -157,26 +165,18 @@
             "Rp100.000",
             "Rp1.000.000"
             ],
-            show: true
+            show: true,
+            state_form: 0
         };
         },
         methods: {
             onSubmit(evt) {
-                evt.preventDefault();
-                alert(JSON.stringify(this.form));
-            },
-            onReset(evt) {
-                evt.preventDefault();
-                // Reset our form values
-                this.form.email = "";
-                this.form.name = "";
-                this.form.food = null;
-                this.form.checked = [];
-                // Trick to reset/clear native browser form validation state
-                this.show = false;
-                this.$nextTick(() => {
-                this.show = true;
-                });
+                evt.preventDefault()
+                if (!this.state_form) {
+                    this.state_form = 2
+                    return
+                }
+                alert(JSON.stringify(this.form))
             }
         },
         components: {NavBar}
