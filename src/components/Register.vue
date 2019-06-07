@@ -97,6 +97,10 @@
                             </b-form-group>
 
                             <b-button block type="submit" style="background-color: #d71149; border-color:  #d71149; border-radius: 3px">DAFTAR</b-button>
+
+                            <p class="link-login-desc">
+                                Sudah punya akun? <a class="link-login" href="/login">Masuk</a>
+                            </p>
                         </b-form>
                     </div>
                 </b-col>
@@ -168,6 +172,15 @@
         margin-bottom: 30px;
     }
     
+    .link-login {
+        color: #d71149;
+    }
+
+    .link-login-desc {
+        font-size: 15px;
+        text-align: center;
+        margin-top: 10px;
+    }
 
     @media screen and (min-width: 540px) {
         .form-box {
