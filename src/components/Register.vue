@@ -96,6 +96,35 @@
                             </b-form-select>
                             </b-form-group>
 
+                            <b-form-group
+                            label="Tentukan password demi keamanan akun Anda"
+                            id="input-group-7"
+                            >
+                            <b-form-input 
+                                id="input-7"
+                                v-model="form.password" 
+                                required
+                                type="password"
+                                placeholder="Password"
+                                style="border-radius: 3px; font-size: 0.9rem;"
+                                >
+                            </b-form-input>
+                            </b-form-group>
+
+                            <b-form-group
+                            id="input-group-7"
+                            >
+                            <b-form-input 
+                                id="input-7"
+                                v-model="form.confirm_password" 
+                                required
+                                type="password"
+                                placeholder="Confirm password"
+                                style="border-radius: 3px; font-size: 0.9rem;"
+                                >
+                            </b-form-input>
+                            </b-form-group>
+
                             <b-button block type="submit" style="background-color: #d71149; border-color:  #d71149; border-radius: 3px">DAFTAR</b-button>
 
                             <p class="link-login-desc">
@@ -117,6 +146,9 @@
             form: {
             email: "",
             name: "",
+            whatsapp: "",
+            address: "",
+            instagram: "",
             infaq: null,
             checked: []
             },
@@ -191,7 +223,6 @@
             border-radius: 3px;
             box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
             padding: 30px;
-            font-size: 10px;
         }
         .main-div {
             background-color: #f2f3f4; height: 100%;

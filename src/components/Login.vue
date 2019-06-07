@@ -102,7 +102,6 @@
             border-radius: 3px;
             box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
             padding: 30px;
-            font-size: 10px;
         }
         .main-div {
             background-color: #f2f3f4; height: 100%;
