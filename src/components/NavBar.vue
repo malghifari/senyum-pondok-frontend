@@ -1,11 +1,11 @@
 <template>
     <div>
-        <b-navbar toggleable="lg" type="dark" style="background-color: #d71149">
+        <b-navbar class="main-navbar" toggleable="lg" type="dark">
             <b-navbar-brand href="#">
                 <b-row>
                     <b-col class="brand-senyum-indonesia" cols="12">
                         <b-row>
-                            <b-col style="flex-grow: 0.2">
+                            <b-col class="col-logo">
                                 <img src="../assets/logo-senyum-putih.png" class="logo">
                             </b-col>
                             <b-col class="brand-name">
@@ -31,19 +31,42 @@ export default {
 </script>
 
 <style scoped>
+    .main-navbar {
+        background-color: #d71149;
+    }
+
     .logo {
         width: 6vh;
         height: auto;
+        margin-right: 0px;
     }
+
     .brand-name {
-        padding-top: 4px;
-        padding-left: 6px;
-        font-size: 17px;
-    }
-    .brand-senyum-indonesia {
-        margin-left: 250px;
+        font-size: 13px;
+
     }
     .brand-name-senyum {
         font-weight: bold
+    }
+
+    .col-logo {
+        padding-right: 3px;
+    }
+
+    @media screen and (min-width: 540px) {
+        .brand-name {
+            padding-top: 4px;
+            padding-left: 6px;
+            font-size: 17px;
+        }
+        .brand-senyum-indonesia {
+            margin-left: 250px;
+        }
+        .brand-name-senyum {
+            font-weight: bold;
+        }
+        .col-logo {
+            flex-grow: 0.2;
+        }
     }
 </style>
