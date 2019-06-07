@@ -67,6 +67,7 @@ export default {
         }
         .col-logo {
             flex-grow: 0.2;
+            margin-right: 15px; 
         }
     }
 </style>
