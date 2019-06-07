@@ -12,10 +12,17 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
 #app {
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Open Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  color: #4d4d4d;
+  height: 100%;
+}
+
+html, body {
+  height: 100%;
 }
 </style>

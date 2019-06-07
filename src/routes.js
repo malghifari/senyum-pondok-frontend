@@ -1,11 +1,11 @@
 import VueRouter from 'vue-router'
-import HelloWorld from "./components/HelloWorld"
+import NavBar from "./components/NavBar"
 import Register from "./components/Register"
 
 const routes = [
     {
         path: '/',
-        component: HelloWorld
+        component: NavBar
     },
     {
         path: '/register',
