@@ -226,6 +226,7 @@
         }
         .main-div {
             background-color: #f2f3f4; height: 100%;
+            overflow: auto;
         }
         .main-row {
             margin-top: 70px;
