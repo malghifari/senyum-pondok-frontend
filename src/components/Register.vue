@@ -185,6 +185,8 @@
 <style scoped>
     .orang-baik {
         display: none;
+        padding: 50px;
+        padding-top: 120px;
     }
 
     .form-box {
@@ -213,6 +215,11 @@
         font-size: 15px;
         text-align: center;
         margin-top: 10px;
+    }
+
+    .greeting {
+        margin-top: 20px;
+        font-size: 1em;
     }
 
     @media screen and (min-width: 540px) {
