@@ -134,9 +134,9 @@
 
                             </div>
 
-                            <p class="link-login-desc">
+                            <!-- <p class="link-login-desc">
                                 Sudah punya akun? <a class="link-login" href="/login">Masuk</a>
-                            </p>
+                            </p> -->
                         </b-form>
                     </div>
                 </b-col>
@@ -192,6 +192,7 @@
         margin-top: 30px;
         width: 80%;
         padding: 10px;
+        padding-bottom: 50px;
         overflow: auto;
     }
 
@@ -221,6 +222,7 @@
             width: 90%;
             background-color: #fff;
             border-radius: 3px;
+            margin-bottom: 80px;
             box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
             padding: 30px;
         }

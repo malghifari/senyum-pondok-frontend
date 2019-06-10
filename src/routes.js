@@ -2,6 +2,7 @@ import VueRouter from 'vue-router'
 import NavBar from "./components/NavBar"
 import Register from "./components/Register"
 import Login from "./components/Login"
+import ThankPage from "./components/ThankPage"
 
 const routes = [
     {
@@ -15,6 +16,10 @@ const routes = [
     {
         path: '/login',
         component: Login
+    },
+    {
+        path: '/terimakasih',
+        component: ThankPage
     }
 ];
 
