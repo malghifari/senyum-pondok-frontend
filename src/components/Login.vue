@@ -1,9 +1,9 @@
 <template>
     <div class="main-div">
         <nav-bar></nav-bar>
-        <div>
+        <div class="main-content">
             <b-row class="main-row justify-content-md-center">
-                <b-col sm="3">
+                <b-col sm="4">
                     <div class="form-box">
                         <h5>
                             Masuk ke akun Anda
@@ -77,6 +77,7 @@
         margin-top: 30px;
         width: 80%;
         padding: 10px;
+        overflow: auto;
     }
 
     .form-box > h5 {
@@ -105,6 +106,7 @@
         }
         .main-div {
             background-color: #f2f3f4; height: 100%;
+            overflow: auto;
         }
         .main-row {
             margin-top: 70px;
@@ -112,5 +114,11 @@
         .form-box > h5 {
             text-align: center; margin: 20px; margin-bottom: 30px;
         }
+    }
+    @media screen and (min-width: 1366px) {
+        .main-content {
+            width: 1366px;
+            margin: auto;
+        }        
     }
 </style>
