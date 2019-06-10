@@ -1,9 +1,9 @@
 <template>
     <div class="main-div">
         <nav-bar></nav-bar>
-        <div>
+        <div class="main-content">
             <b-row class="main-row justify-content-md-center">
-                <b-col class="orang-baik" sm="3">
+                <b-col class="orang-baik" sm="4">
                     <h2>
                         Hai #OrangBaik
                     </h2>
@@ -11,7 +11,7 @@
                         Selamat bergabung di Pondok Senyum Indonesia, rumah bagi adik-adik istimewa dari pelosok Jawa Barat
                     </p>
                 </b-col>
-                <b-col sm="3">
+                <b-col sm="4">
                     <div class="form-box">
                         <h5>
                             Daftar Menjadi <strong>#OrangTuaKakakAsuh</strong>
@@ -41,7 +41,6 @@
                                     id="input-2" 
                                     v-model="form.whatsapp" 
                                     required
-                                    :state="state_name"
                                     placeholder="Nomor WhatsApp Anda *"
                                     style="border-radius: 3px; font-size: 0.9rem;"
                                     >
@@ -193,6 +192,7 @@
         margin-top: 30px;
         width: 80%;
         padding: 10px;
+        overflow: auto;
     }
 
     .form-box > h5 {
@@ -218,7 +218,7 @@
         .form-box {
             display: block;
             margin: auto;
-            width: 80%;
+            width: 90%;
             background-color: #fff;
             border-radius: 3px;
             box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
@@ -244,5 +244,12 @@
         .form-box > h5 {
             text-align: center; margin: 20px; margin-bottom: 30px;
         }
+    }
+
+    @media screen and (min-width: 1366px) {
+        .main-content {
+            width: 1366px;
+            margin: auto;
+        }        
     }
 </style>
