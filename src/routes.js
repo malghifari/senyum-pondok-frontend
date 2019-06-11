@@ -19,6 +19,7 @@ const routes = [
     },
     {
         path: '/terimakasih',
+        name: 'terimakasih',
         component: ThankPage
     }
 ];

@@ -1,6 +1,7 @@
 <template>
     <div class="main-div">
         <nav-bar></nav-bar>
+        <alert :message=message v-if="showMessage"></alert>
         <div class="main-content">
             <b-row class="main-row justify-content-md-center">
                 <b-col class="orang-baik" sm="4">
@@ -14,7 +15,7 @@
                 <b-col sm="4">
                     <div class="form-box">
                         <h5>
-                            Daftar Menjadi <strong>#OrangTuaKakakAsuh</strong>
+                            Daftar Menjadi <strong>#OrangTuaAsuh</strong>
                         </h5>
                         <p class="greeting-2">
                             Selamat bergabung di Pondok Senyum Indonesia, rumah bagi adik-adik istimewa dari pelosok Jawa Barat
@@ -28,7 +29,7 @@
                                     id="input-1" 
                                     v-model="form.name" 
                                     required 
-                                    placeholder="Nama lengkap Anda *"
+                                    placeholder="Nama Anda *"
                                     style="border-radius: 3px; font-size: 0.9rem;"
                                     >
                                 </b-form-input>
@@ -42,6 +43,19 @@
                                     v-model="form.whatsapp" 
                                     required
                                     placeholder="Nomor WhatsApp Anda *"
+                                    style="border-radius: 3px; font-size: 0.9rem;"
+                                    >
+                                </b-form-input>
+                                </b-form-group>
+
+                                <b-form-group 
+                                id="input-group-3b"
+                                >
+                                <b-form-input 
+                                    id="input-3b" 
+                                    v-model="form.age" 
+                                    required 
+                                    placeholder="Usia Anda *"
                                     style="border-radius: 3px; font-size: 0.9rem;"
                                     >
                                 </b-form-input>
@@ -87,16 +101,23 @@
                                 <b-form-group 
                                 id="input-group-6"
                                 >
-                                <b-form-select 
+                                <b-form-select
                                     id="input-6" 
-                                    v-model="form.infaq" 
-                                    :options="infaq" 
+                                    v-model="selected_infaq" 
+                                    :options="infaq_option" 
                                     required
                                     style="border-radius: 3px; font-size: 0.9rem;"
                                     >
                                 </b-form-select>
                                 </b-form-group>
-                                
+
+                                <b-form-group 
+                                id="input-group-6a"
+                                v-if="selected_infaq == 'Isi sendiri'" 
+                                >
+                                    <currency-formatter v-model="form.infaq"></currency-formatter>
+                                </b-form-group>
+
                                 <b-button block type="submit" style="background-color: #d71149; border-color:  #d71149; border-radius: 3px">DAFTAR</b-button>
                             </div>
 
@@ -147,38 +168,114 @@
 
 <script>
     import NavBar from "./NavBar"
+    import CurrencyFormatter from "./CurrencyFormatter"
+    import Alert from "./Alert"
+    import axios from 'axios'
+
     export default {
         data() {
-        return {
-            form: {
-            email: "",
-            name: "",
-            whatsapp: "",
-            address: "",
-            instagram: "",
-            infaq: null,
-            checked: []
+            return {
+                form: {
+                    email: "",
+                    name: "",
+                    whatsapp: "",
+                    address: "",
+                    instagram: "",
+                    infaq: 500000,
+                    password: "",
+                    confirm_password: "",
+                    age: ""
+                },
+                infaq_option: [
+                    { text: "Jumlah infaq rutin", value: null },
+                    "Rp100.000",
+                    "Rp300.000",
+                    "Rp500.000",
+                    "Isi sendiri"
+                ],
+                infaq_dict: {
+                    "Rp100.000": 100000,
+                    "Rp300.000": 300000,
+                    "Rp500.000": 500000,
+                },
+                selected_infaq: null,
+                show: true,
+                state_form: 0,
+                access_token: '',
+                role: '',
+                showMessage: false,
+                message: ''
+            };
+        },
+        watch: {
+            access_token(new_token) {
+                localStorage.access_token = new_token
             },
-            infaq: [
-            { text: "Jumlah infaq rutin", value: null },
-            "Rp100.000",
-            "Rp1.000.000"
-            ],
-            show: true,
-            state_form: 0
-        };
+            role(new_role) {
+                localStorage.role = new_role
+            }
+        },
+        mounted() {
+            if (localStorage.access_token) {
+                this.access_token = localStorage.access_token
+            }
+            if (localStorage.role) {
+                this.role = localStorage.role
+            }
         },
         methods: {
             onSubmit(evt) {
                 evt.preventDefault()
                 if (!this.state_form) {
-                    this.state_form = 2
+                    this.state_form = 1
                     return
                 }
-                alert(JSON.stringify(this.form))
+                if (this.form.password !== this.form.confirm_password) {
+                    return
+                }
+                const payload = {
+                    email: this.form.email,
+                    name: this.form.name,
+                    whatsapp: this.form.whatsapp,
+                    address: this.form.address,
+                    instagram: this.form.instagram,
+                    infaq: this.getInfaq(),
+                    password: this.form.password,
+                    role: "oka",
+                    born_year: this.getBornYear()
+                }
+                console.log(payload)
+                this.register(payload)
+            },
+            register(payload) {
+                const path = process.env.VUE_APP_BASE_API + 'user/register'
+                axios.post(path, payload)
+                    .then((res) => {
+                        console.log(res)
+                        this.access_token = res.data.data.access_token
+                        this.role = res.data.data.role
+                        this.$router.push("terimakasih")
+                    })
+                    .catch((error) => {
+                        this.state_form = 0
+                        this.message = "Mohon maaf pendaftaran gagal, coba beberapa saat lagi."
+                        this.showMessage = true
+                        console.log(error)
+                    });
+            },
+            getInfaq() {
+                if (this.selected_infaq == "Isi sendiri") {
+                    return this.form.infaq
+                } else {
+                    return this.infaq_dict[this.selected_infaq]
+                }
+            },
+            getBornYear() {
+                let now = new Date().getFullYear()
+                return now - this.form.age
             }
         },
-        components: {NavBar}
+        components: {NavBar, CurrencyFormatter, Alert}
     };
 </script>
 
