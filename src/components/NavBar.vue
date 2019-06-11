@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <b-navbar class="main-navbar" toggleable="lg" type="dark">
-            <b-navbar-brand href="/" class="nav-bound">
+    <div class="main-navbar">
+        <b-navbar  class="nav-bound" toggleable="lg" type="dark">
+            <b-navbar-brand href="#">
                 <div class="brand-senyum-indonesia">
                     <img src="../assets/logo-senyum-indonesia-putih.png" class="logo">
                 </div>
