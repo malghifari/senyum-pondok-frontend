@@ -6,8 +6,8 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "postinstall": "npm run build && cp server.js dist/",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "deploy": "git subtree push — prefix dist heroku master"
   },
   "dependencies": {
     "axios": "^0.18.1",
