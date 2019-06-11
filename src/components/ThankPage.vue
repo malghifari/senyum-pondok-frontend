@@ -9,7 +9,7 @@
                             Pendaftaran Sukses
                         </h5>
                         <p>
-                            Terima kasih telah menjadi <strong>#OrangTuaKakakAsuh</strong> untuk adik-adik Pondok Senyum Indonesia. Semoga menjadi amal kebaikan yang terus mengalir bagi kita semua. Untuk sementara, Sistem Informasi saat ini hanya menerima pendaftaran, fitur-fitur lainnya Insya Allah akan segera menyusul. Hubungi kami di 082121908986 (WhatsApp).
+                            Terima kasih telah menjadi <strong>#OrangTuaAsuh</strong> untuk adik-adik Pondok Senyum Indonesia. Semoga menjadi amal kebaikan yang terus mengalir bagi kita semua. Untuk sementara, Sistem Informasi saat ini hanya menerima pendaftaran, fitur-fitur lainnya Insya Allah akan segera menyusul. Hubungi kami di 082121908986 (WhatsApp).
                         </p>
                     </div>
                 </b-col>
