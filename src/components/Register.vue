@@ -122,6 +122,9 @@
                             </div>
 
                             <div class="state-1" v-if="state_form">
+                                <div style="margin-bottom: 10px;">
+                                    <b-button @click="backStateForm" style="background-color: #d71149; border-color:  #d71149; border-radius: 3px; font-size: 12px;">BACK</b-button>
+                                </div>
                                 <b-form-group
                                 label="Tentukan password demi keamanan akun Anda"
                                 id="input-group-7"
@@ -152,7 +155,7 @@
                                 </b-form-group>
 
                                 <b-button block type="submit" style="background-color: #d71149; border-color:  #d71149; border-radius: 3px; padding:0; padding-bottom:0.9vh">
-                                    <div v-if="loading">
+                                    <div v-if="!loading">
                                         SELESAI
                                     </div>
                                     <b-spinner v-else style="width: 1rem; height: 1rem;"  label="Loading"></b-spinner>
@@ -280,6 +283,10 @@
             getBornYear() {
                 let now = new Date().getFullYear()
                 return now - this.form.age
+            },
+            backStateForm(evt) {
+                evt.preventDefault()
+                this.state_form = 0
             }
         },
         components: {NavBar, CurrencyFormatter, Alert}
