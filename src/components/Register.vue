@@ -151,7 +151,12 @@
                                 </b-form-input>
                                 </b-form-group>
 
-                                <b-button block type="submit" style="background-color: #d71149; border-color:  #d71149; border-radius: 3px">SELESAI</b-button>
+                                <b-button block type="submit" style="background-color: #d71149; border-color:  #d71149; border-radius: 3px; padding:0; padding-bottom:0.9vh">
+                                    <div v-if="loading">
+                                        SELESAI
+                                    </div>
+                                    <b-spinner v-else style="width: 1rem; height: 1rem;"  label="Loading"></b-spinner>
+                                </b-button>
 
                             </div>
 
@@ -204,7 +209,8 @@
                 access_token: '',
                 role: '',
                 showMessage: false,
-                message: ''
+                message: '',
+                loading: false
             };
         },
         watch: {
@@ -245,6 +251,7 @@
                     born_year: this.getBornYear()
                 }
                 console.log(payload)
+                this.loading = true
                 this.register(payload)
             },
             register(payload) {
