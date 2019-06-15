@@ -55,7 +55,7 @@
                                     id="input-3b" 
                                     v-model="form.age" 
                                     required 
-                                    placeholder="Usia Anda *"
+                                    placeholder="Tahun kelahiran Anda *"
                                     style="border-radius: 3px; font-size: 0.9rem;"
                                     >
                                 </b-form-input>
@@ -192,7 +192,7 @@
                     infaq: 500000,
                     password: "",
                     confirm_password: "",
-                    age: ""
+                    born_year: ""
                 },
                 infaq_option: [
                     { text: "Jumlah infaq rutin", value: null },
@@ -251,7 +251,7 @@
                     infaq: this.getInfaq(),
                     password: this.form.password,
                     role: "oka",
-                    born_year: this.getBornYear()
+                    born_year: this.form.born_year
                 }
                 console.log(payload)
                 this.loading = true
