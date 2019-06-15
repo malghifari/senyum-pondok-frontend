@@ -3,7 +3,7 @@
         <b-navbar  class="nav-bound" toggleable="lg" type="dark">
             <b-navbar-brand href="#">
                 <div class="brand-senyum-indonesia">
-                    <img src="../assets/logo-senyum-indonesia-putih.png" class="logo">
+                    <img src="../assets/logo-senyum-indonesia-putih.svg" class="logo" onerror="this.onerror=null; this.src='../assets/logo-senyum-indonesia-putih.png'">
                 </div>
             </b-navbar-brand>
         </b-navbar>
@@ -19,6 +19,7 @@ export default {
 <style scoped>
     .main-navbar {
         background-color: #d71149;
+        width: 100%;
     }
 
     .logo {

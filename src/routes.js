@@ -1,5 +1,4 @@
 import VueRouter from 'vue-router'
-import NavBar from "./components/NavBar"
 import Register from "./components/Register"
 import Login from "./components/Login"
 import ThankPage from "./components/ThankPage"
@@ -7,19 +6,22 @@ import ThankPage from "./components/ThankPage"
 const routes = [
     {
         path: '/',
-        component: NavBar
+        name: 'home',
+        component: Register
     },
     {
         path: '/register',
+        name: 'register',
         component: Register
     },
     {
         path: '/login',
+        name: 'login',
         component: Login
     },
     {
-        path: '/terimakasih',
-        name: 'terimakasih',
+        path: '/thank-you',
+        name: 'thank-you',
         component: ThankPage
     }
 ];

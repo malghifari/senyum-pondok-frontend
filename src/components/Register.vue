@@ -264,12 +264,14 @@
                         console.log(res)
                         this.access_token = res.data.data.access_token
                         this.role = res.data.data.role
-                        this.$router.push("terimakasih")
+                        this.$router.push("thank-you")
                     })
                     .catch((error) => {
                         this.state_form = 0
                         this.message = "Mohon maaf pendaftaran gagal, coba beberapa saat lagi."
                         this.showMessage = true
+                        this.loading = false
+                        this.$router.push("register")
                         console.log(error)
                     });
             },
