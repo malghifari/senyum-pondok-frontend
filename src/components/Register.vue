@@ -313,7 +313,7 @@
             },
             is_whatsapp_available() {
                 const path = process.env.VUE_APP_BASE_API + 'user/check-whatsapp'
-                axios.get(path)
+                axios.get(path, {whatsapp: this.form.whatsapp})
                     .then((res) => {
                         this.whatsapp_availability = res.data.data
                     })
