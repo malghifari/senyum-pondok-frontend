@@ -53,7 +53,7 @@
                                 >
                                 <b-form-input 
                                     id="input-3b" 
-                                    v-model="form.age" 
+                                    v-model="form.born_year" 
                                     required 
                                     placeholder="Tahun kelahiran Anda *"
                                     style="border-radius: 3px; font-size: 0.9rem;"
