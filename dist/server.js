@@ -3,6 +3,7 @@
 const express = require('express')
 const path = require('path')
 const history = require('connect-history-api-fallback')
+var enforce = require('express-sslify');
 // ^ middleware to redirect all URLs to index.html
 
 const app = express()
@@ -13,14 +14,7 @@ app.use(history())
 app.use(staticFileMiddleware)
 // ^ `app.use(staticFileMiddleware)` is included twice as per https://github.com/bripkens/connect-history-api-fallback/blob/master/examples/static-files-and-index-rewrite/README.md#configuring-the-middleware
 
-if(process.env.NODE_ENV === 'production') {
-  app.use((req, res, next) => {
-    if (req.header('x-forwarded-proto') !== 'https')
-      res.redirect(`https://${req.header('host')}${req.url}`)
-    else
-      next()
-  })
-}
+app.use(enforce.HTTPS());
 
 app.get('/', function (req, res) {
   res.render(path.join(__dirname + '/index.html'))
