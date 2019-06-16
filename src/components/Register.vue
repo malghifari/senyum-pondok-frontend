@@ -289,7 +289,7 @@
                     })
                     .catch((error) => {
                         this.state_form = 0
-                        this.message = "Mohon maaf pendaftaran gagal, coba beberapa saat lagi."
+                        this.message = "Mohon maaf pendaftaran gagal. Hubungi kami untuk bantuan 087848471386 (WA)"
                         this.showMessage = true
                         this.loading = false
                         this.$router.push("register")
@@ -312,11 +312,18 @@
                 this.state_form = 0
             },
             is_whatsapp_available() {
+                if (!this.form.whatsapp) {
+                    this.whatsapp_availability = null   
+                    return
+                }
                 const path = process.env.VUE_APP_BASE_API + 'user/check-whatsapp'
-                axios.get(path, {whatsapp: this.form.whatsapp})
+                axios.post(path, {whatsapp: this.form.whatsapp})
                     .then((res) => {
                         this.whatsapp_availability = res.data.data
                     })
+                    .catch((error) => {
+                        console.log(error)
+                    });
             },
             validateBornYear() {
                 this.bornYearValidity = /^\d+$/.test(this.form.born_year)
