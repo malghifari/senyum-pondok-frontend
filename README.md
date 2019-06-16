@@ -6,24 +6,24 @@ npm install
 ```
 
 ### Compiles and hot-reloads for development
+Change local .env
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Deployment
 ```
 npm run build
 ```
-
-### Run your tests
+Copy file in deploy package to /dist
+Change staging .env
 ```
-npm run test
+npm run staging
 ```
-
-### Lints and fixes files
+Change production .env
 ```
-npm run lint
+npm run deploy
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+```
+git push origin master
+```
