@@ -6,53 +6,22 @@
                 <div class="form-box">
                     <!-- User Interface controls -->
                     <b-row>
-                    <b-col md="6" class="my-1">
-                        <b-form-group label-cols-sm="3" label="Filter" class="mb-0">
-                        <b-input-group>
-                            <b-form-input v-model="filter" placeholder="Type to Search"></b-form-input>
-                            <b-input-group-append>
-                            <b-button :disabled="!filter" @click="filter = ''">Clear</b-button>
-                            </b-input-group-append>
-                        </b-input-group>
-                        </b-form-group>
-                    </b-col>
-
-                    <b-col md="6" class="my-1">
-                        <b-form-group label-cols-sm="3" label="Sort" class="mb-0">
-                        <b-input-group>
-                            <b-form-select v-model="sortBy" :options="sortOptions">
-                            <option slot="first" :value="null">-- none --</option>
-                            </b-form-select>
-                            <b-form-select v-model="sortDesc" :disabled="!sortBy" slot="append">
-                            <option :value="false">Asc</option> <option :value="true">Desc</option>
-                            </b-form-select>
-                        </b-input-group>
-                        </b-form-group>
-                    </b-col>
-
-                    <b-col md="6" class="my-1">
-                        <b-form-group label-cols-sm="3" label="Sort direction" class="mb-0">
-                        <b-form-select v-model="sortDirection">
-                            <option value="asc">Asc</option>
-                            <option value="desc">Desc</option>
-                            <option value="last">Last</option>
-                        </b-form-select>
-                        </b-form-group>
-                    </b-col>
-
-                    <b-col md="6" class="my-1">
-                        <b-form-group label-cols-sm="3" label="Per page" class="mb-0">
-                        <b-form-select v-model="perPage" :options="pageOptions"></b-form-select>
-                        </b-form-group>
-                    </b-col>
+                        <b-col md="6" class="my-1">
+                            <b-input-group>
+                                <b-form-input v-model="filter" placeholder="Ketik untuk mencari"></b-form-input>
+                                <b-input-group-append>
+                                <b-button :disabled="!filter" @click="filter = ''">Bersihkan</b-button>
+                                </b-input-group-append>
+                            </b-input-group>
+                        </b-col>
                     </b-row>
 
                     <!-- Main table element -->
                     <b-table
                     show-empty
                     stacked="md"
-                    :items="items"
-                    :fields="fields"
+                    :items="okas"
+                    :fields="oka_fields"
                     :current-page="currentPage"
                     :per-page="perPage"
                     :filter="filter"
@@ -62,11 +31,7 @@
                     @filtered="onFiltered"
                     >
                     <template slot="name" slot-scope="row">
-                        {{ row.value.first }} {{ row.value.last }}
-                    </template>
-
-                    <template slot="isActive" slot-scope="row">
-                        {{ row.value ? 'Yes :)' : 'No :(' }}
+                        {{ row.value }}
                     </template>
 
                     <template slot="actions" slot-scope="row">
@@ -88,14 +53,22 @@
                     </b-table>
 
                     <b-row>
-                    <b-col md="6" class="my-1">
-                        <b-pagination
-                        v-model="currentPage"
-                        :total-rows="totalRows"
-                        :per-page="perPage"
-                        class="my-0"
-                        ></b-pagination>
-                    </b-col>
+                        <b-col md="5" class="my-1">
+                            <b-form-group label-cols-sm="3" label="Per Halaman" class="mb-0">
+                            <b-form-select style="width: 25%" v-model="perPage" :options="pageOptions"></b-form-select>
+                            </b-form-group>
+                        </b-col>
+                    </b-row>
+
+                    <b-row>
+                        <b-col md="6" class="my-1">
+                            <b-pagination
+                            v-model="currentPage"
+                            :total-rows="totalRows"
+                            :per-page="perPage"
+                            class="my-0"
+                            ></b-pagination>
+                        </b-col>
                     </b-row>
 
                     <!-- Info modal -->
@@ -113,49 +86,31 @@
     export default {
         data() {
             return {
-            items: [
-                { isActive: true, age: 40, name: { first: 'Dickerson', last: 'Macdonald' } },
-                { isActive: false, age: 21, name: { first: 'Larsen', last: 'Shaw' } },
-                {
-                isActive: false,
-                age: 9,
-                name: { first: 'Mini', last: 'Navarro' },
-                _rowVariant: 'success'
-                },
-                { isActive: false, age: 89, name: { first: 'Geneva', last: 'Wilson' } },
-                { isActive: true, age: 38, name: { first: 'Jami', last: 'Carney' } },
-                { isActive: false, age: 27, name: { first: 'Essie', last: 'Dunlap' } },
-                { isActive: true, age: 40, name: { first: 'Thor', last: 'Macdonald' } },
-                {
-                isActive: true,
-                age: 87,
-                name: { first: 'Larsen', last: 'Shaw' },
-                _cellVariants: { age: 'danger', isActive: 'warning' }
-                },
-                { isActive: false, age: 26, name: { first: 'Mitzi', last: 'Navarro' } },
-                { isActive: false, age: 22, name: { first: 'Genevieve', last: 'Wilson' } },
-                { isActive: true, age: 38, name: { first: 'John', last: 'Carney' } },
-                { isActive: false, age: 29, name: { first: 'Dick', last: 'Dunlap' } }
-            ],
-            fields: [
-                { key: 'name', label: 'Person Full name', sortable: true, sortDirection: 'desc' },
-                { key: 'age', label: 'Person age', sortable: true, class: 'text-center' },
-                { key: 'isActive', label: 'is Active' },
-                { key: 'actions', label: 'Actions' }
-            ],
-            totalRows: 1,
-            currentPage: 1,
-            perPage: 5,
-            pageOptions: [5, 10, 15],
-            sortBy: null,
-            sortDesc: false,
-            sortDirection: 'asc',
-            filter: null,
-            infoModal: {
-                id: 'info-modal',
-                title: '',
-                content: ''
-            }
+                access_token: localStorage.access_token ? localStorage.access_token : '',
+                okas: [],
+                oka_fields: [
+                    {key: 'id', label: 'ID', sortable: true, sortDirection: 'asc'},
+                    {key: 'name', label: 'Nama'},
+                    {key: 'whatsapp', label: 'No Whatsapp'},
+                    {key: 'infaq', label: 'Infaq', sortable: true, sortDirection: 'desc'},
+                    {key: 'instagram', label: 'Instagram'},
+                    {key: 'email', label: 'Email'},
+                    {key: 'address', label: 'Alamat'},
+                    // {key: 'actions', label: 'Aksi'}
+                ],
+                totalRows: 1,
+                currentPage: 1,
+                perPage: 5,
+                pageOptions: [5, 10, 15],
+                sortBy: null,
+                sortDesc: false,
+                sortDirection: 'asc',
+                filter: null,
+                infoModal: {
+                    id: 'info-modal',
+                    title: '',
+                    content: ''
+                }
             }
         },
         computed: {
@@ -169,23 +124,37 @@
             }
         },
         mounted() {
+            this.load_table()
             // Set the initial number of items
-            this.totalRows = this.items.length
+            this.totalRows = this.okas.length
         },
         methods: {
+            async load_table() {
+                let access_token = localStorage.access_token;
+                let result = await fetch(process.env.VUE_APP_BASE_API + 'user/all', {
+                    method: 'GET',
+                    headers: {
+                        Authorization: access_token,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                let json = await result.json()
+                this.okas = json.data
+                console.log(this.okas)
+            },
             info(item, index, button) {
-            this.infoModal.title = `Row index: ${index}`
-            this.infoModal.content = JSON.stringify(item, null, 2)
-            this.$root.$emit('bv::show::modal', this.infoModal.id, button)
+                this.infoModal.title = `Row index: ${index}`
+                this.infoModal.content = JSON.stringify(item, null, 2)
+                this.$root.$emit('bv::show::modal', this.infoModal.id, button)
             },
             resetInfoModal() {
-            this.infoModal.title = ''
-            this.infoModal.content = ''
+                this.infoModal.title = ''
+                this.infoModal.content = ''
             },
             onFiltered(filteredItems) {
-            // Trigger pagination to update the number of buttons/pages due to filtering
-            this.totalRows = filteredItems.length
-            this.currentPage = 1
+                // Trigger pagination to update the number of buttons/pages due to filtering
+                this.totalRows = filteredItems.length
+                this.currentPage = 1
             }
         },
         components: {NavBar}

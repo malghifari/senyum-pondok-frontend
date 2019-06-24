@@ -51,20 +51,62 @@
 
 <script>
     import NavBar from "./NavBar"
+    import axios from 'axios'
+
     export default {
         data() {
         return {
             form: {
-            whatsapp: '',
-            password: '',
+                whatsapp: '',
+                password: '',
             },
-            show: true
+            show: true,
+            access_token: '',
+            role: ''
         };
         },
+        watch: {
+            access_token(new_token) {
+                localStorage.access_token = new_token;
+            },
+            role(new_role) {
+                localStorage.role = new_role;
+            }
+        },
+        mounted() {
+            if (localStorage.access_token) {
+                this.access_token = localStorage.access_token;
+            }
+            if (localStorage.role) {
+                this.role = localStorage.role;
+            }
+        },
         methods: {
+            login(payload) {
+                console.log(process.env.VUE_APP_BASE_API);
+                const path = process.env.VUE_APP_BASE_API + 'user/login';
+                axios.post(path, payload)
+                    .then((res) => {
+                        console.log(res);
+                        this.access_token = res.data.data.access_token;
+                        this.role = res.data.data.role;
+                        if (this.role == "admin") {
+                            this.$router.push("admin/biodata-oka")
+                        } else {
+                            window.location.reload();
+                        }
+                    })
+                    .catch((error) => {
+                    console.log(error)
+                });
+            },
             onSubmit(evt) {
                 evt.preventDefault();
-                alert(JSON.stringify(this.form));
+                const payload = {
+                    whatsapp: this.form.whatsapp,
+                    password: this.form.password
+                };
+                this.login(payload);
             },
         },
         components: {NavBar}
