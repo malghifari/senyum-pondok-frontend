@@ -124,6 +124,13 @@
             }
         },
         mounted() {
+            let role = localStorage.role;
+            if (!localStorage.access_token) {
+                this.$router.push('/');
+            }
+            if (role !== 'admin') {
+                this.$router.push('/');
+            }
             this.load_table()
             // Set the initial number of items
             this.totalRows = this.okas.length
