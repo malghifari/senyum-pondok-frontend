@@ -2,7 +2,8 @@ import VueRouter from 'vue-router'
 import Register from "./components/Register"
 import Login from "./components/Login"
 import ThankPage from "./components/ThankPage"
-import BiodataOka from "./components/BiodataOka"
+import BiodataOka from "./components/pages/BiodataOka"
+import StatusInfaq from "./components/pages/StatusInfaq"
 
 const routes = [
     {
@@ -29,6 +30,11 @@ const routes = [
         path: '/admin/biodata-oka',
         name: 'biodata-oka',
         component: BiodataOka
+    },
+    {
+        path: '/admin/status-infaq',
+        name: 'status-infaq',
+        component: StatusInfaq
     }
 ];
 

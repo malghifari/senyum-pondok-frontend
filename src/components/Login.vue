@@ -88,8 +88,10 @@
                 axios.post(path, payload)
                     .then((res) => {
                         console.log(res);
-                        this.access_token = res.data.data.access_token;
+                        this.access_token = res.data.data.access_token
+                        localStorage.access_token = res.data.data.access_token
                         this.role = res.data.data.role;
+                        localStorage.role = res.data.data.role
                         if (this.role == "admin") {
                             this.$router.push("admin/biodata-oka")
                         } else {
