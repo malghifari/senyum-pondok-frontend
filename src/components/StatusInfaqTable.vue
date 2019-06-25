@@ -1,5 +1,9 @@
 <template>
     <div class="form-box">
+        <div style="text-align: center; font-size: 4vh; font-weight: bold">
+            Status Infaq
+        </div>
+        <br />
         <!-- User Interface controls -->
         <b-row>
             <b-col md="6" class="my-1">

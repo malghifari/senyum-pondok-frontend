@@ -179,9 +179,9 @@
 
                             </div>
 
-                            <!-- <p class="link-login-desc">
+                            <p class="link-login-desc">
                                 Sudah punya akun? <a class="link-login" href="/login">Masuk</a>
-                            </p> -->
+                            </p>
                         </b-form>
                     </div>
                 </b-col>
