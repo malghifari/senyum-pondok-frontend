@@ -33,8 +33,11 @@
 <style scoped>
     @media screen and (min-width: 540px) {
         .main-div {
-            background-color: #f2f3f4; height: 100%;
-            overflow: auto;
+            background-color: #f2f3f4;
+            height: 100%;
+            padding-bottom: 100px;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
         .main-row {
             margin-top: 70px;

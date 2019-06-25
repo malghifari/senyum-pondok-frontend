@@ -1,9 +1,12 @@
 <template>
     <div class="main-div">
         <nav-bar></nav-bar>
+        <alert :message=message v-if="message"></alert>
         <div class="main-content">
             <b-row class="main-row justify-content-md-center">
-                <status-infaq-table></status-infaq-table>
+                <b-col sm="4">
+                    <login v-model="message"></login>
+                </b-col>
             </b-row>
         </div>
     </div>
@@ -11,22 +14,25 @@
 
 <script>
     import NavBar from "../NavBar"
-    import StatusInfaqTable from "../StatusInfaqTable"
+    import Login from "../Login"
+    import Alert from "../Alert"
+
     export default {
         data() {
             return {
+                message: ''
             }
         },
         mounted() {
             let role = localStorage.role;
-            if (!localStorage.access_token) {
-                this.$router.push('/');
-            }
-            if (role !== 'admin') {
-                this.$router.push('/');
+            // if (role == 'oka') {
+            //     this.$router.push('/oka/upload-infaq');
+            // }
+            if (role == 'admin') {
+                this.$router.push('/admin/biodata-oka');
             }
         },
-        components: {NavBar, StatusInfaqTable}
+        components: {NavBar, Login, Alert}
     }
 </script>
 

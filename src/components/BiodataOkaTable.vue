@@ -85,7 +85,7 @@
                     {key: 'id', label: 'ID OKA', sortable: true, sortDirection: 'asc'},
                     {key: 'name', label: 'Nama'},
                     {key: 'whatsapp', label: 'No Whatsapp'},
-                    {key: 'born_year', label: 'Umur', class: 'text-center'},
+                    {key: 'born_year', label: 'Umur'},
                     {key: 'infaq', label: 'Infaq', sortable: true, sortDirection: 'desc'},
                     {key: 'instagram', label: 'Instagram'},
                     {key: 'email', label: 'Email'},

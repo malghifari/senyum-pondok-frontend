@@ -1,7 +1,7 @@
 import VueRouter from 'vue-router'
-import Register from "./components/Register"
-import Login from "./components/Login"
-import ThankPage from "./components/ThankPage"
+import Register from "./components/pages/Register"
+import Login from "./components/pages/Login"
+import ThankYou from "./components/pages/ThankYou"
 import BiodataOka from "./components/pages/BiodataOka"
 import StatusInfaq from "./components/pages/StatusInfaq"
 
@@ -24,7 +24,7 @@ const routes = [
     {
         path: '/thank-you',
         name: 'thank-you',
-        component: ThankPage
+        component: ThankYou
     },
     {
         path: '/admin/biodata-oka',

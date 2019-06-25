@@ -3,7 +3,9 @@
         <nav-bar></nav-bar>
         <div class="main-content">
             <b-row class="main-row justify-content-md-center">
-                <status-infaq-table></status-infaq-table>
+                <b-col sm="4">
+                    <thank-you></thank-you>
+                </b-col>
             </b-row>
         </div>
     </div>
@@ -11,22 +13,15 @@
 
 <script>
     import NavBar from "../NavBar"
-    import StatusInfaqTable from "../StatusInfaqTable"
+    import ThankYou from "../ThankYou"
     export default {
         data() {
             return {
             }
         },
         mounted() {
-            let role = localStorage.role;
-            if (!localStorage.access_token) {
-                this.$router.push('/');
-            }
-            if (role !== 'admin') {
-                this.$router.push('/');
-            }
         },
-        components: {NavBar, StatusInfaqTable}
+        components: {NavBar, ThankYou}
     }
 </script>
 

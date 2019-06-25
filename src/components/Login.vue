@@ -1,66 +1,55 @@
 <template>
-    <div class="main-div">
-        <nav-bar></nav-bar>
-        <alert :message=message v-if="showMessage"></alert>
-        <div class="main-content">
-            <b-row class="main-row justify-content-md-center">
-                <b-col sm="4">
-                    <div class="form-box">
-                        <h5>
-                            Masuk ke akun Anda
-                        </h5>
-                        <b-form @submit="onSubmit" v-if="show">
-                            <b-form-group 
-                            id="input-group-1"
-                            >
-                            <b-form-input 
-                                id="input-1" 
-                                v-model="form.whatsapp" 
-                                required
-                                placeholder="Nomor WhatsApp Anda"
-                                style="border-radius: 3px; font-size: 0.9rem;"
-                                >
-                            </b-form-input>
-                            </b-form-group>
+    <div class="form-box">
+        <h5>
+            Masuk ke akun Anda
+        </h5>
+        <b-form @submit="onSubmit" v-if="show">
+            <b-form-group 
+            id="input-group-1"
+            >
+            <b-form-input 
+                id="input-1" 
+                v-model="form.whatsapp" 
+                required
+                placeholder="Nomor WhatsApp Anda"
+                style="border-radius: 3px; font-size: 0.9rem;"
+                >
+            </b-form-input>
+            </b-form-group>
 
-                            <b-form-group 
-                            id="input-group-2"
-                            >
-                            <b-form-input 
-                                id="input-2" 
-                                v-model="form.password" 
-                                required 
-                                type="password"
-                                placeholder="Password"
-                                style="border-radius: 3px; font-size: 0.9rem;"
-                                >
-                            </b-form-input>
-                            </b-form-group>
+            <b-form-group 
+            id="input-group-2"
+            >
+            <b-form-input 
+                id="input-2" 
+                v-model="form.password" 
+                required 
+                type="password"
+                placeholder="Password"
+                style="border-radius: 3px; font-size: 0.9rem;"
+                >
+            </b-form-input>
+            </b-form-group>
 
-                            <b-button block type="submit" style="background-color: #d71149; border-color:  #d71149; border-radius: 3px">
-                                <div v-if="!loading">
-                                    MASUK
-                                </div>
-                                <b-spinner v-else style="width: 1rem; height: 1rem;"  label="Loading"></b-spinner>
-                            </b-button>
+            <b-button block type="submit" style="background-color: #d71149; border-color:  #d71149; border-radius: 3px">
+                <div v-if="!loading">
+                    MASUK
+                </div>
+                <b-spinner v-else style="width: 1rem; height: 1rem;"  label="Loading"></b-spinner>
+            </b-button>
 
-                            <p class="link-register-desc">
-                                Belum punya akun? <a class="link-register" href="/register">Daftar</a>
-                            </p>
-                        </b-form>
-                    </div>
-                </b-col>
-            </b-row>
-        </div>
+            <p class="link-register-desc">
+                Belum punya akun? <a class="link-register" href="/register">Daftar</a>
+            </p>
+        </b-form>
     </div>
 </template>
 
 <script>
-    import NavBar from "./NavBar"
     import axios from 'axios'
-    import Alert from "./Alert"
 
     export default {
+        props: ["value"],
         data() {
             return {
                 form: {
@@ -112,6 +101,7 @@
                         this.message = "Nomor whatsapp dan password tidak ada yang cocok"
                         this.showMessage = true
                         this.loading = false
+                        this.$emit('input', this.message)
                         console.log(error)
                     });
             },
@@ -125,7 +115,7 @@
                 this.login(payload)
             },
         },
-        components: {NavBar, Alert}
+        components: {}
     };
 </script>
 
@@ -162,21 +152,8 @@
             box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
             padding: 30px;
         }
-        .main-div {
-            background-color: #f2f3f4; height: 100%;
-            overflow: auto;
-        }
-        .main-row {
-            margin-top: 70px;
-        }
         .form-box > h5 {
             text-align: center; margin: 20px; margin-bottom: 30px;
         }
-    }
-    @media screen and (min-width: 1366px) {
-        .main-content {
-            width: 1366px;
-            margin: auto;
-        }        
     }
 </style>
