@@ -11,6 +11,7 @@
                 </b-input-group>
             </b-col>
         </b-row>
+        <br />
 
         <!-- Main table element -->
         <b-table
@@ -28,7 +29,7 @@
         >
 
         <template slot="user" slot-scope="row">
-            <b-button size="sm" @click="info(row.item, row.index, $event.target)" class="mr-1">
+            <b-button size="sm" @click="info(row.value, row.value.name, $event.target)" class="mr-1">
                 {{ row.value.name }}
             </b-button>
         </template>
@@ -67,7 +68,16 @@
 
         <!-- Info modal -->
         <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
-            <pre>{{ infoModal.content }}</pre>
+            <div v-for="(value, name) in infoModal.content" :key="name">
+                <b-row v-if="name != 'created_at' && name != 'role' && name != 'updated_at'">
+                    <b-col cols="3">
+                        {{name.charAt(0).toUpperCase() + name.slice(1)}}
+                    </b-col>
+                    <b-col>
+                        {{value}}
+                    </b-col>
+                </b-row>
+            </div>
         </b-modal>
     </div>                
 </template>
@@ -82,7 +92,7 @@
                     {key: 'month_year', label: 'Waktu', sortable: true, sortDirection: 'desc'},
                     {key: 'user', label: 'OKA', sortable: true, sortDirection: 'asc'},
                     {key: 'temp_infaq', label: 'Infaq Bulan Ini', sortable: true, sortDirection: 'desc'},
-                    {key: 'paid_off_status', label: 'Status'},
+                    {key: 'paid_off_status', label: 'Status', sortable: true, sortDirection: 'desc'},
                 ],
                 totalRows: 1,
                 currentPage: 1,
@@ -128,8 +138,8 @@
                 console.log(this.monthly_infaq)
             },
             info(item, index, button) {
-                this.infoModal.title = `Row index: ${index}`
-                this.infoModal.content = JSON.stringify(item, null, 2)
+                this.infoModal.title = `Biodata ${index}`
+                this.infoModal.content = item
                 this.$root.$emit('bv::show::modal', this.infoModal.id, button)
             },
             resetInfoModal() {

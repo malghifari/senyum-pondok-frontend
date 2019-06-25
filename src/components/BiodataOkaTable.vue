@@ -11,6 +11,7 @@
                 </b-input-group>
             </b-col>
         </b-row>
+        <br />
 
         <!-- Main table element -->
         <b-table
