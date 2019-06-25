@@ -39,6 +39,11 @@
 </script>
 
 <style scoped>
+    .main-row {
+        margin-right: 0; 
+        margin-left: 0
+    }
+
     @media screen and (min-width: 540px) {
         .main-div {
             background-color: #f2f3f4;
