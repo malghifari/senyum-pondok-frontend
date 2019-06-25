@@ -16,6 +16,8 @@
                 </b-navbar-nav>
 
                 <b-navbar-nav class="ml-auto">
+                    <b-nav-item href="/login" v-if="access_token == ''">Login</b-nav-item>
+                    <b-nav-item href="/register" v-if="access_token == ''">Register</b-nav-item>
                     <b-nav-item v-on:click=logout v-if="access_token !== ''">Logout</b-nav-item>
                 </b-navbar-nav>
             </b-collapse>
