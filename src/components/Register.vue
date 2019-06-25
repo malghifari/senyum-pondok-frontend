@@ -44,8 +44,16 @@
                                     required
                                     placeholder="Nomor WhatsApp Anda *"
                                     style="border-radius: 3px; font-size: 0.9rem;"
+                                    :state="whatsapp_availability"
+                                    @keyup="is_whatsapp_available"
                                     >
                                 </b-form-input>
+                                <b-form-invalid-feedback :state="whatsapp_availability">
+                                    Nomor Whatsapp sudah digunakan
+                                </b-form-invalid-feedback>
+                                <b-form-valid-feedback :state="whatsapp_availability">
+                                    Nomor Whatsapp dapat digunakan
+                                </b-form-valid-feedback>
                                 </b-form-group>
 
                                 <b-form-group 
@@ -53,12 +61,20 @@
                                 >
                                 <b-form-input 
                                     id="input-3b" 
-                                    v-model="form.age" 
+                                    v-model="form.born_year" 
                                     required 
-                                    placeholder="Usia Anda *"
+                                    placeholder="Tahun kelahiran Anda *"
                                     style="border-radius: 3px; font-size: 0.9rem;"
+                                    :state="bornYearValidity"
+                                    @keyup="validateBornYear"                                    
                                     >
                                 </b-form-input>
+                                <b-form-invalid-feedback :state="bornYearValidity">
+                                    Tahun kelahiran tidak valid
+                                </b-form-invalid-feedback>
+                                <b-form-valid-feedback :state="bornYearValidity">
+                                    Tahun kelahiran valid
+                                </b-form-valid-feedback>
                                 </b-form-group>
 
                                 <b-form-group 
@@ -192,7 +208,7 @@
                     infaq: 500000,
                     password: "",
                     confirm_password: "",
-                    age: ""
+                    born_year: ""
                 },
                 infaq_option: [
                     { text: "Jumlah infaq rutin", value: null },
@@ -213,7 +229,9 @@
                 role: '',
                 showMessage: false,
                 message: '',
-                loading: false
+                loading: false,
+                whatsapp_availability: null,
+                bornYearValidity: null
             };
         },
         watch: {
@@ -236,7 +254,10 @@
             onSubmit(evt) {
                 evt.preventDefault()
                 if (!this.state_form) {
-                    this.state_form = 1
+                    if (this.bornYearValidity && this.whatsapp_availability) {
+                        this.state_form = 1
+                        return
+                    }
                     return
                 }
                 if (this.form.password !== this.form.confirm_password) {
@@ -251,7 +272,7 @@
                     infaq: this.getInfaq(),
                     password: this.form.password,
                     role: "oka",
-                    born_year: this.getBornYear()
+                    born_year: this.form.born_year
                 }
                 console.log(payload)
                 this.loading = true
@@ -264,12 +285,14 @@
                         console.log(res)
                         this.access_token = res.data.data.access_token
                         this.role = res.data.data.role
-                        this.$router.push("terimakasih")
+                        this.$router.push("thank-you")
                     })
                     .catch((error) => {
                         this.state_form = 0
-                        this.message = "Mohon maaf pendaftaran gagal, coba beberapa saat lagi."
+                        this.message = "Mohon maaf pendaftaran gagal. Hubungi kami untuk bantuan 087848471386 (WA)"
                         this.showMessage = true
+                        this.loading = false
+                        this.$router.push("register")
                         console.log(error)
                     });
             },
@@ -287,6 +310,23 @@
             backStateForm(evt) {
                 evt.preventDefault()
                 this.state_form = 0
+            },
+            is_whatsapp_available() {
+                if (!this.form.whatsapp) {
+                    this.whatsapp_availability = null   
+                    return
+                }
+                const path = process.env.VUE_APP_BASE_API + 'user/check-whatsapp'
+                axios.post(path, {whatsapp: this.form.whatsapp})
+                    .then((res) => {
+                        this.whatsapp_availability = res.data.data
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    });
+            },
+            validateBornYear() {
+                this.bornYearValidity = /^\d+$/.test(this.form.born_year)
             }
         },
         components: {NavBar, CurrencyFormatter, Alert}
@@ -331,6 +371,13 @@
     .greeting {
         margin-top: 20px;
         font-size: 1em;
+    }
+
+    .available{
+        color: green;
+    }
+    .notavailable{
+        color: red;
     }
 
     @media screen and (min-width: 540px) {

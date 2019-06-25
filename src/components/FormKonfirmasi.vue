@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="form-box">
       <b-form-group id="input-group-1" label-for="input-1">
         <b-form-input
           id="input-1"
@@ -29,6 +29,7 @@
 
     <b-form-file v-model="form.file" class="mt-3" plain></b-form-file>
     <div class="mt-3">Selected file: {{ form.file ? form.file.name : '' }}</div>
+    <b-button block type="submit" style="background-color: #d71149; border-color:  #d71149; border-radius: 3px">SUBMIT</b-button>
   </div>
 </template>
 
@@ -56,7 +57,10 @@
 </script>
 
 <style>
-    div {
-        width: 90%;
-    }
+  #form-box {
+    width: 90%;
+    padding: 5%;
+    box-shadow: inset 0px 0px 2px 2px #a7aeba;
+    margin: 10% auto;
+  }
 </style>

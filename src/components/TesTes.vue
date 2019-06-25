@@ -1,18 +1,18 @@
 <template>
     <div class="main-navbar">
-        <b-navbar  class="nav-bound" toggleable="lg" type="dark">
-            <b-navbar-brand href="#">
-                <div class="brand-senyum-indonesia">
-                    <img src="../assets/logo-senyum-indonesia-putih.svg" class="logo" onerror="this.onerror=null; this.src='../assets/logo-senyum-indonesia-putih.png'">
-                </div>
-            </b-navbar-brand>
-        </b-navbar>
+        {{ aas }}
+        {{ title }}
     </div>
 </template>
 
 <script>
 export default {
-    
+    data() {
+        return {
+            aas: "hanif",
+        };
+    },
+    props : ["title"]
 }
 </script>
 

@@ -1,5 +1,4 @@
 import VueRouter from 'vue-router'
-import NavBar from "./components/NavBar"
 import Register from "./components/Register"
 import Login from "./components/Login"
 import ThankPage from "./components/ThankPage"
@@ -7,23 +6,28 @@ import MenuPage from "./components/MenuPage"
 import Home from "./components/Home"
 import FormKonfirmasi from "./components/FormKonfirmasi"
 import Konfirmasi from "./components/Konfirmasi"
+import TesTes from "./components/TesTes"
+import TesTis from "./components/TesTis"
 
 const routes = [
     {
         path: '/',
-        component: NavBar
+        name: 'home',
+        component: Register
     },
     {
         path: '/register',
+        name: 'register',
         component: Register
     },
     {
         path: '/login',
+        name: 'login',
         component: Login
     },
     {
-        path: '/terimakasih',
-        name: 'terimakasih',
+        path: '/thank-you',
+        name: 'thank-you',
         component: ThankPage
     },
     {
@@ -41,6 +45,14 @@ const routes = [
     {
         path: '/konfirmasi',
         component: Konfirmasi
+    },
+    {
+        path: '/asal',
+        component: TesTes
+    },
+    {
+        path: '/asil',
+        component: TesTis
     },
 ];
 

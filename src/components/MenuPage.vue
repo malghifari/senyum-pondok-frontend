@@ -1,10 +1,11 @@
 <template>
 <div id="main-menupage">
 	<ul style="list-style: none;">
-	  <li>Konfirmasi Infaq</li>
+	  <li><i class="material-icons" style="font-size:30px;color:white;padding: 6px;">assignment_turned_in</i>Konfirmasi Infaq</li>
 	  <li>Histori Infaq</li>
 	  <li>Laporan Dana</li>
-	  <li>Pengaturan</li>
+      <li>Pengaturan</li>
+      <li id="keluar">Keluar</li>
 	</ul>
 </div>
 </template>
@@ -20,6 +21,10 @@ export default {
     	text-align: center;
     	background-color: #D71149;
     }
+    #keluar {
+        position: relative;
+        bottom: 0;
+    }
     ul {
     	font-size: 20px;
     	color: #fff;
@@ -34,13 +39,9 @@ export default {
     @media screen and (min-width: 540px) {
     	#main-menupage {
     		height: 100%;
-    		width: 20%;
     	}
-    	ul {
-    		font-size: 26px;
-    	}
-    	li {
-    		padding: 10px 0px;
-    	}
+        li {
+            padding: 20px;
+        }
     }
 </style>

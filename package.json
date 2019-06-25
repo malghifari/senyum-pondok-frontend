@@ -7,7 +7,8 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "start": "node dist/server.js",
-    "deploy": "git subtree push — prefix dist heroku master"
+    "deploy": "git subtree push --prefix dist heroku master",
+    "staging": "git subtree push --prefix dist staging-frontend master"
   },
   "dependencies": {
     "ajv": "^6.10.0",
