@@ -264,8 +264,10 @@
                     .then((res) => {
                         console.log(res)
                         this.access_token = res.data.data.access_token
+                        localStorage.access_token = res.data.data.access_token
                         this.role = res.data.data.role
-                        this.$router.push("thank-you")
+                        localStorage.role = res.data.data.role
+                        this.$router.push("/oka/upload-infaq")
                     })
                     .catch((error) => {
                         this.state_form = 0

@@ -25,9 +25,9 @@
         },
         mounted() {
             let role = localStorage.role;
-            // if (role == 'oka') {
-            //     this.$router.push('/oka/upload-infaq');
-            // }
+            if (role == 'oka') {
+                this.$router.push('/oka/upload-infaq');
+            }
             if (role == 'admin') {
                 this.$router.push('/admin/biodata-oka');
             }

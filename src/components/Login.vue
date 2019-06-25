@@ -92,9 +92,9 @@
                         this.role = res.data.data.role
                         localStorage.role = res.data.data.role
                         if (this.role == "admin") {
-                            this.$router.push("admin/biodata-oka")
+                            this.$router.push("/admin/biodata-oka")
                         } else {
-                            window.location.reload();
+                            this.$router.push("/oka/upload-infaq")
                         }
                     })
                     .catch((error) => {
