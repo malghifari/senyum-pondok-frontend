@@ -92,16 +92,62 @@
 
         <!-- Info modal -->
         <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
-            <div v-for="(value, name) in infoModal.content" :key="name">
-                <b-row v-if="name != 'created_at' && name != 'role' && name != 'updated_at'">
-                    <b-col cols="3">
-                        {{name.charAt(0).toUpperCase() + name.slice(1)}}
-                    </b-col>
-                    <b-col>
-                        {{value}}
-                    </b-col>
-                </b-row>
-            </div>
+            <b-row>
+                <b-col cols="4">
+                    ID OKA
+                </b-col>
+                <b-col>
+                    {{infoModal.content.id}}
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col cols="4">
+                    Nama
+                </b-col>
+                <b-col>
+                    {{infoModal.content.name}}
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col cols="4">
+                    No. Whatsapp
+                </b-col>
+                <b-col>
+                    {{infoModal.content.whatsapp}}
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col cols="4">
+                    Umur
+                </b-col>
+                <b-col>
+                    {{ this_year - infoModal.content.born_year}}
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col cols="4">
+                    Email
+                </b-col>
+                <b-col>
+                    {{infoModal.content.email}}
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col cols="4">
+                    Instagram
+                </b-col>
+                <b-col>
+                    {{infoModal.content.instagram}}
+                </b-col>
+            </b-row>
+            <b-row>
+                <b-col cols="4">
+                    Alamat
+                </b-col>
+                <b-col>
+                    {{infoModal.content.address}}
+                </b-col>
+            </b-row>
         </b-modal>
     </div>                
 </template>
@@ -114,10 +160,10 @@
                 monthly_infaq: [],
                 monthly_infaq_fields: [
                     {key: 'month_year', label: 'Waktu', sortable: true, sortDirection: 'desc'},
-                    {key: 'user', label: 'OKA', sortable: true, sortDirection: 'asc'},
+                    {key: 'user', label: 'OKA'},
                     {key: 'user.infaq', label: 'Infaq Rutin', sortable: true, sortDirection: 'asc'},
                     {key: 'temp_infaq', label: 'Infaq Bulan Ini', sortable: true, sortDirection: 'desc'},
-                    {key: 'paid_off_status', label: 'Status', sortable: true, sortDirection: 'desc'},
+                    {key: 'paid_off_status', label: 'Status'},
                 ],
                 filtered_monthly_infaq: [],
                 totalRows: 1,
@@ -140,7 +186,8 @@
                     { value: '', text: '-' },
                     { value: 'True', text: 'Lunas' },
                     { value: 'False', text: 'Belum Lunas' },
-                ]
+                ],
+                this_year: new Date().getFullYear()
             }
         },
         computed: {

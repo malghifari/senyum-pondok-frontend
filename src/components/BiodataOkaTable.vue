@@ -36,6 +36,10 @@
             {{ row.value }}
         </template>
 
+        <template slot="born_year" slot-scope="row">
+            {{ this_year - row.value }}
+        </template>
+
         <template slot="row-details" slot-scope="row">
             <b-card>
             <ul>
@@ -44,9 +48,7 @@
             </b-card>
         </template>
         </b-table>
-        <div>
-            {{totalRows}}
-        </div>
+
         <b-row>
             <b-col md="5" class="my-1">
                 <b-form-group label-cols-sm="3" label="Per Halaman" class="mb-0">
@@ -83,6 +85,7 @@
                     {key: 'id', label: 'ID OKA', sortable: true, sortDirection: 'asc'},
                     {key: 'name', label: 'Nama'},
                     {key: 'whatsapp', label: 'No Whatsapp'},
+                    {key: 'born_year', label: 'Umur', class: 'text-center'},
                     {key: 'infaq', label: 'Infaq', sortable: true, sortDirection: 'desc'},
                     {key: 'instagram', label: 'Instagram'},
                     {key: 'email', label: 'Email'},
@@ -101,7 +104,8 @@
                     id: 'info-modal',
                     title: '',
                     content: ''
-                }
+                },
+                this_year : new Date().getFullYear()
             }
         },
         computed: {
