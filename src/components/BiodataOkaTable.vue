@@ -44,7 +44,9 @@
             </b-card>
         </template>
         </b-table>
-
+        <div>
+            {{totalRows}}
+        </div>
         <b-row>
             <b-col md="5" class="my-1">
                 <b-form-group label-cols-sm="3" label="Per Halaman" class="mb-0">
@@ -105,7 +107,7 @@
         computed: {
             sortOptions() {
             // Create an options list from our fields
-            return this.fields
+            return this.oka_fields
                 .filter(f => f.sortable)
                 .map(f => {
                 return { text: f.label, value: f.key }
@@ -128,6 +130,7 @@
                 });
                 let json = await result.json()
                 this.okas = json.data
+                this.totalRows = this.okas.length
                 console.log(this.okas)
             },
             info(item, index, button) {
