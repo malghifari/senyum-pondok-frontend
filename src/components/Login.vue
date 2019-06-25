@@ -1,6 +1,7 @@
 <template>
     <div class="main-div">
         <nav-bar></nav-bar>
+        <alert :message=message v-if="showMessage"></alert>
         <div class="main-content">
             <b-row class="main-row justify-content-md-center">
                 <b-col sm="4">
@@ -36,7 +37,12 @@
                             </b-form-input>
                             </b-form-group>
 
-                            <b-button block type="submit" style="background-color: #d71149; border-color:  #d71149; border-radius: 3px">MASUK</b-button>
+                            <b-button block type="submit" style="background-color: #d71149; border-color:  #d71149; border-radius: 3px">
+                                <div v-if="!loading">
+                                    MASUK
+                                </div>
+                                <b-spinner v-else style="width: 1rem; height: 1rem;"  label="Loading"></b-spinner>
+                            </b-button>
 
                             <p class="link-register-desc">
                                 Belum punya akun? <a class="link-register" href="/register">Daftar</a>
@@ -52,18 +58,22 @@
 <script>
     import NavBar from "./NavBar"
     import axios from 'axios'
+    import Alert from "./Alert"
 
     export default {
         data() {
-        return {
-            form: {
-                whatsapp: '',
-                password: '',
-            },
-            show: true,
-            access_token: '',
-            role: ''
-        };
+            return {
+                form: {
+                    whatsapp: '',
+                    password: '',
+                },
+                show: true,
+                access_token: '',
+                role: '',
+                loading: false,
+                showMessage: false,
+                message: '',
+            };
         },
         watch: {
             access_token(new_token) {
@@ -83,14 +93,14 @@
         },
         methods: {
             login(payload) {
-                console.log(process.env.VUE_APP_BASE_API);
-                const path = process.env.VUE_APP_BASE_API + 'user/login';
+                console.log(process.env.VUE_APP_BASE_API)
+                const path = process.env.VUE_APP_BASE_API + 'user/login'
                 axios.post(path, payload)
                     .then((res) => {
                         console.log(res);
                         this.access_token = res.data.data.access_token
                         localStorage.access_token = res.data.data.access_token
-                        this.role = res.data.data.role;
+                        this.role = res.data.data.role
                         localStorage.role = res.data.data.role
                         if (this.role == "admin") {
                             this.$router.push("admin/biodata-oka")
@@ -99,19 +109,23 @@
                         }
                     })
                     .catch((error) => {
-                    console.log(error)
-                });
+                        this.message = "Nomor whatsapp dan password tidak ada yang cocok"
+                        this.showMessage = true
+                        this.loading = false
+                        console.log(error)
+                    });
             },
             onSubmit(evt) {
-                evt.preventDefault();
+                evt.preventDefault()
                 const payload = {
                     whatsapp: this.form.whatsapp,
                     password: this.form.password
-                };
-                this.login(payload);
+                }
+                this.loading = true
+                this.login(payload)
             },
         },
-        components: {NavBar}
+        components: {NavBar, Alert}
     };
 </script>
 
