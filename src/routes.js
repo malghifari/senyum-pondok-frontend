@@ -4,6 +4,7 @@ import Login from "./components/pages/Login"
 import ThankYou from "./components/pages/ThankYou"
 import BiodataOka from "./components/pages/BiodataOka"
 import StatusInfaq from "./components/pages/StatusInfaq"
+import ExFormWithFileInput from "./components/ExFormWithFileInput"
 
 const routes = [
     {
@@ -35,6 +36,11 @@ const routes = [
         path: '/admin/status-infaq',
         name: 'status-infaq',
         component: StatusInfaq
+    },
+    {
+        path: '/infaq',
+        name: 'infaq',
+        component: ExFormWithFileInput
     }
 ];
 
