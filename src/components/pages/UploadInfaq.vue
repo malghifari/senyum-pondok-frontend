@@ -1,11 +1,12 @@
 <template>
     <div class="main-div">
         <nav-bar></nav-bar>
-        <alert :message=message colour="danger" v-if="message"></alert>
+        <alert :message=message colour="success" v-if="message == 'Infaq berhasil disubmit'"></alert>
+        <alert :message=message colour="danger" v-if="message == 'Upload infaq gagal. Coba beberapa saat lagi. Hubungi teknis (087848471386)'"></alert>
         <div class="main-content">
             <b-row class="main-row justify-content-md-center">
                 <b-col sm="4">
-                    <login v-model="message"></login>
+                    <upload-infaq v-model="message"></upload-infaq>
                 </b-col>
             </b-row>
         </div>
@@ -14,25 +15,25 @@
 
 <script>
     import NavBar from "../NavBar"
-    import Login from "../Login"
+    import UploadInfaq from "../UploadInfaq"
     import Alert from "../Alert"
 
     export default {
         data() {
             return {
-                message: ''
+                message: '',
             }
         },
         mounted() {
             let role = localStorage.role;
-            if (role == 'oka') {
-                this.$router.push('/oka/upload-infaq');
+            if (!localStorage.access_token) {
+                this.$router.push('/');
             }
-            if (role == 'admin') {
-                this.$router.push('/admin/biodata-oka');
+            if (role !== 'oka') {
+                this.$router.push('/');
             }
         },
-        components: {NavBar, Login, Alert}
+        components: {NavBar, UploadInfaq, Alert}
     }
 </script>
 
