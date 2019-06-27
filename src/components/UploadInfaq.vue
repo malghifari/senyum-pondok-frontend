@@ -38,9 +38,8 @@
                 <image-uploader
                     :preview="true"
                     :className="['fileinput', { 'fileinput--loaded': hasImage }]"
-                    capture="environment"
-                    :debug="1"
-                    :maxWidth="512"
+                    :debug="0"
+                    :maxWidth="1024"
                     outputFormat="blob"
                     @input="setImage"
                 >
