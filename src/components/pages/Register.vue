@@ -1,7 +1,7 @@
 <template>
     <div class="main-div">
         <nav-bar></nav-bar>
-        <alert :message=message v-if="message"></alert>
+        <alert :message=message colour="danger" v-if="message"></alert>
         <div class="main-content">
             <b-row class="main-row justify-content-md-center">
                 <orang-baik></orang-baik>

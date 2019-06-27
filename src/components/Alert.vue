@@ -1,6 +1,6 @@
 <template>
   <div class="main-alert">
-    <b-alert variant="danger" show>
+    <b-alert :variant="colour" show>
         <div class="alert-bound">
             {{ message }}
         </div>
@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  props: ['message'],
+  props: ['message', 'colour'],
 };
 </script>
 
