@@ -117,7 +117,7 @@
                 id="input-group-6a"
                 v-if="selected_infaq == 'Isi sendiri'" 
                 >
-                    <currency-formatter v-model="form.infaq"></currency-formatter>
+                    <currency-formatter v-model="form.infaq" placeholder="Jumlah infaq Anda"></currency-formatter>
                 </b-form-group>
 
                 <b-button block type="submit" style="background-color: #d71149; border-color:  #d71149; border-radius: 3px">DAFTAR</b-button>

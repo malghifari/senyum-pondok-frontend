@@ -6,30 +6,43 @@
         <b-form @submit="onSubmit">
             <b-form-group 
                 id="input-group-2"
+                label-cols="12"
+                label="Nominal infaq"
+                label-for="input-2"
                 >
-                <b-form-input 
-                    id="input-2" 
-                    v-model="form.nominal"
-                    required
-                    placeholder="Nominal infaq"
-                    style="border-radius: 3px; font-size: 0.9rem;"
-                    >
-                </b-form-input>
+                <currency-formatter id="input-2"  v-model="form.nominal" placeholder="Nominal infaq"></currency-formatter>
             </b-form-group>
 
             <b-form-group 
                 id="input-group-3"
+                label-cols="12"
+                label="Periode"
+                label-for="bulan"
                 >
-                <b-form-input 
-                    id="input-3" 
-                    v-model="form.month_year" 
-                    required
-                    placeholder="Bulan dan tahun (YYYY-M: ex 2019-8)"
-                    style="border-radius: 3px; font-size: 0.9rem;"
-                    >
-                </b-form-input>
+                <b-row>
+                    <b-col cols="7">
+                        <b-form-select
+                            class="mb-2 mr-sm-2 mb-sm-0"
+                            v-model="form.month"
+                            :options="month_option"
+                            required
+                            id="bulan"
+                            style="border-radius: 3px; font-size: 0.9rem;"
+                            >
+                        </b-form-select>
+                    </b-col>
+                    <b-col cols="5" style="padding-left: 0">
+                        <b-form-input 
+                            type="number"
+                            id="year" 
+                            v-model="form.year"
+                            required
+                            style="border-radius: 3px; font-size: 0.9rem;"
+                            >
+                        </b-form-input>
+                    </b-col>
+                </b-row>
             </b-form-group>
-
             
             <b-form-group 
                 id="input-group-4"
@@ -78,7 +91,7 @@
 </template>
 
 <script>
-
+import CurrencyFormatter from "./CurrencyFormatter"
 import axios from 'axios'
 
 export default {
@@ -87,24 +100,48 @@ export default {
         return {
             form: {
                 nominal: '',
-                month_year: '',
+                month: new Date().getMonth() + 1,
+                year: new Date().getFullYear()
             },
             hasImage: false,
             image: null,
             showMessage: false,
             message: '',
             loading: false,
+            month_option: [ 
+                { value: 1, text: 'Januari'},
+                { value: 2, text: 'Februari'},
+                { value: 3, text: 'Maret'},
+                { value: 4, text: 'April'},
+                { value: 5, text: 'Mei'},
+                { value: 6, text: 'Juni'},
+                { value: 7, text: 'Juli'},
+                { value: 8, text: 'Agustus'},
+                { value: 9, text: 'September'},
+                { value: 10, text: 'Oktober'},
+                { value: 11, text: 'November'},
+                { value: 12, text: 'Desember'}
+            ]
+            
         }
     },
     methods: {
         onSubmit(evt) {
             evt.preventDefault();
+            if (!this.form.nominal) {
+                document.getElementById("input-6a").focus()
+                return
+            }
+            if (!this.image) {
+                return
+            }
+
             this.loading = true
             let access_token = localStorage.access_token;
             let fd = new FormData()
             fd.append('image', this.image)
             fd.append('nominal', this.form.nominal)
-            fd.append('month_year', this.form.month_year)
+            fd.append('month_year', this.form.year + '-' + this.form.month)
             const path = process.env.VUE_APP_BASE_API + 'transaction/create';
             axios.post(path, fd, {
                 headers: {
@@ -131,7 +168,8 @@ export default {
             this.hasImage = true;
             this.image = output;
         }
-    }
+    },
+    components: {CurrencyFormatter}
 }
 </script>
 
