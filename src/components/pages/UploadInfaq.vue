@@ -1,7 +1,7 @@
 <template>
     <div class="main-div">
         <nav-bar></nav-bar>
-        <alert :message=message colour="success" v-if="message == 'Infaq berhasil disubmit'"></alert>
+        <alert :message=message colour="success" v-if="message == 'Infaq berhasil disubmit. Tim kami akan segera menghubungi Anda jika infaq Anda sudah diverifikasi :)'"></alert>
         <alert :message=message colour="danger" v-if="message == 'Upload infaq gagal. Coba beberapa saat lagi. Hubungi teknis (087848471386)'"></alert>
         <div class="main-content">
             <b-row class="main-row justify-content-md-center">

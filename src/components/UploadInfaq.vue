@@ -150,7 +150,7 @@ export default {
                 }
             })
             .then(response => {
-                this.message = "Infaq berhasil disubmit"
+                this.message = "Infaq berhasil disubmit. Tim kami akan segera menghubungi Anda jika infaq Anda sudah diverifikasi :)"
                 this.showMessage = true
                 this.loading = false
                 this.$emit('input', this.message)
