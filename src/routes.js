@@ -5,6 +5,7 @@ import ThankYou from "./components/pages/ThankYou"
 import BiodataOka from "./components/pages/BiodataOka"
 import StatusInfaq from "./components/pages/StatusInfaq"
 import UploadInfaq from "./components/pages/UploadInfaq"
+import AdminUploadInfaq from "./components/pages/AdminUploadInfaq"
 
 const routes = [
     {
@@ -41,6 +42,11 @@ const routes = [
         path: '/oka/upload-infaq',
         name: 'upload-infaq',
         component: UploadInfaq
+    },
+    {
+        path: '/admin/upload-infaq',
+        name: 'admin-upload-infaq',
+        component: AdminUploadInfaq
     }
 ];
 
