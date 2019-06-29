@@ -6,8 +6,8 @@ import MenuPage from "./components/MenuPage"
 import Home from "./components/Home"
 import FormKonfirmasi from "./components/FormKonfirmasi"
 import Konfirmasi from "./components/Konfirmasi"
-import TesTes from "./components/TesTes"
-import TesTis from "./components/TesTis"
+import TabelHistory from "./components/TabelHistory"
+import HistoryInfaq from "./components/HistoryInfaq"
 
 const routes = [
     {
@@ -48,11 +48,11 @@ const routes = [
     },
     {
         path: '/asal',
-        component: TesTes
+        component: TabelHistory
     },
     {
-        path: '/asil',
-        component: TesTis
+        path: '/history',
+        component: HistoryInfaq
     },
 ];
 

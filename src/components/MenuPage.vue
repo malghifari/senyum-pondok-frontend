@@ -39,6 +39,7 @@ export default {
     @media screen and (min-width: 540px) {
     	#main-menupage {
     		height: 100%;
+            width: 100%;
     	}
         li {
             padding: 20px;
