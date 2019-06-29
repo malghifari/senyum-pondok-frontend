@@ -12,11 +12,17 @@ npm run serve
 ```
 
 ### Deployment
+Change staging .env
 ```
 npm run build
 ```
 Copy file in deploy package to /dist
-Change staging .env
+```
+git add .
+```
+```
+git commit
+```
 ```
 npm run staging
 ```

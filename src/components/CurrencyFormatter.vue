@@ -9,7 +9,8 @@
             @blur="isInputActive = false" 
             @focus="isInputActive = true"
             id="input-6a" 
-            placeholder="Jumlah infaq Anda"
+            :placeholder="placeholder"
+            ref="inputNominal"
             style="border-radius: 3px; font-size: 0.9rem; border-top-left-radius: 0; border-bottom-left-radius: 0;"
             >
         </b-input>
@@ -19,7 +20,7 @@
 
 <script>
 export default {
-    props: ["value"],
+    props: ["value", "placeholder"],
     data: function() {
         return {
             isInputActive: false

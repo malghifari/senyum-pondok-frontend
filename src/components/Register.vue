@@ -1,199 +1,179 @@
 <template>
-    <div class="main-div">
-        <nav-bar></nav-bar>
-        <alert :message=message v-if="showMessage"></alert>
-        <div class="main-content">
-            <b-row class="main-row justify-content-md-center">
-                <b-col class="orang-baik" sm="4">
-                    <h2>
-                        Hai #OrangBaik
-                    </h2>
-                    <p class="greeting">
-                        Selamat bergabung di Pondok Senyum Indonesia, rumah bagi adik-adik istimewa dari pelosok Jawa Barat
-                    </p>
-                </b-col>
-                <b-col sm="4">
-                    <div class="form-box">
-                        <h5>
-                            Daftar Menjadi <strong>#OrangTuaAsuh</strong>
-                        </h5>
-                        <p class="greeting-2">
-                            Selamat bergabung di Pondok Senyum Indonesia, rumah bagi adik-adik istimewa dari pelosok Jawa Barat
-                        </p>
-                        <b-form @submit="onSubmit" v-if="show">
-                            <div class="state-0" v-if="!state_form">
-                                <b-form-group 
-                                id="input-group-1"
-                                >
-                                <b-form-input 
-                                    id="input-1" 
-                                    v-model="form.name" 
-                                    required 
-                                    placeholder="Nama Anda *"
-                                    style="border-radius: 3px; font-size: 0.9rem;"
-                                    >
-                                </b-form-input>
-                                </b-form-group>
+    <div class="form-box">
+        <h5>
+            Daftar Menjadi <strong>#OrangTuaAsuh</strong>
+        </h5>
+        <p class="greeting-2">
+            Selamat bergabung di Pondok Senyum Indonesia, rumah bagi adik-adik istimewa dari pelosok Jawa Barat
+        </p>
+        <b-form @submit="onSubmit" v-if="show">
+            <div class="state-0" v-if="!state_form">
+                <b-form-group 
+                id="input-group-1"
+                >
+                <b-form-input 
+                    id="input-1" 
+                    v-model="form.name" 
+                    required 
+                    placeholder="Nama Anda *"
+                    style="border-radius: 3px; font-size: 0.9rem;"
+                    >
+                </b-form-input>
+                </b-form-group>
 
-                                <b-form-group 
-                                id="input-group-2"
-                                >
-                                <b-form-input 
-                                    id="input-2" 
-                                    v-model="form.whatsapp" 
-                                    required
-                                    placeholder="Nomor WhatsApp Anda *"
-                                    style="border-radius: 3px; font-size: 0.9rem;"
-                                    :state="whatsapp_availability"
-                                    @keyup="is_whatsapp_available"
-                                    >
-                                </b-form-input>
-                                <b-form-invalid-feedback :state="whatsapp_availability">
-                                    Nomor Whatsapp sudah digunakan
-                                </b-form-invalid-feedback>
-                                <b-form-valid-feedback :state="whatsapp_availability">
-                                    Nomor Whatsapp dapat digunakan
-                                </b-form-valid-feedback>
-                                </b-form-group>
+                <b-form-group 
+                id="input-group-2"
+                >
+                <b-form-input 
+                    id="input-2" 
+                    v-model="form.whatsapp" 
+                    required
+                    placeholder="Nomor WhatsApp Anda *"
+                    style="border-radius: 3px; font-size: 0.9rem;"
+                    :state="whatsapp_availability"
+                    @keyup="is_whatsapp_available"
+                    >
+                </b-form-input>
+                <b-form-invalid-feedback :state="whatsapp_availability">
+                    Nomor Whatsapp sudah digunakan
+                </b-form-invalid-feedback>
+                <b-form-valid-feedback :state="whatsapp_availability">
+                    Nomor Whatsapp dapat digunakan
+                </b-form-valid-feedback>
+                </b-form-group>
 
-                                <b-form-group 
-                                id="input-group-3b"
-                                >
-                                <b-form-input 
-                                    id="input-3b" 
-                                    v-model="form.born_year" 
-                                    required 
-                                    placeholder="Tahun kelahiran Anda *"
-                                    style="border-radius: 3px; font-size: 0.9rem;"
-                                    :state="bornYearValidity"
-                                    @keyup="validateBornYear"                                    
-                                    >
-                                </b-form-input>
-                                <b-form-invalid-feedback :state="bornYearValidity">
-                                    Tahun kelahiran tidak valid
-                                </b-form-invalid-feedback>
-                                <b-form-valid-feedback :state="bornYearValidity">
-                                    Tahun kelahiran valid
-                                </b-form-valid-feedback>
-                                </b-form-group>
+                <b-form-group 
+                id="input-group-3b"
+                >
+                <b-form-input 
+                    id="input-3b" 
+                    v-model="form.born_year" 
+                    required 
+                    placeholder="Tahun kelahiran Anda *"
+                    style="border-radius: 3px; font-size: 0.9rem;"
+                    :state="bornYearValidity"
+                    @keyup="validateBornYear"                                    
+                    >
+                </b-form-input>
+                <b-form-invalid-feedback :state="bornYearValidity">
+                    Tahun kelahiran tidak valid
+                </b-form-invalid-feedback>
+                <b-form-valid-feedback :state="bornYearValidity">
+                    Tahun kelahiran valid
+                </b-form-valid-feedback>
+                </b-form-group>
 
-                                <b-form-group 
-                                id="input-group-3"
-                                >
-                                <b-form-input 
-                                    id="input-3" 
-                                    v-model="form.address" 
-                                    required 
-                                    placeholder="Alamat rumah Anda *"
-                                    style="border-radius: 3px; font-size: 0.9rem;"
-                                    >
-                                </b-form-input>
-                                </b-form-group>
+                <b-form-group 
+                id="input-group-3"
+                >
+                <b-form-input 
+                    id="input-3" 
+                    v-model="form.address" 
+                    required 
+                    placeholder="Alamat rumah Anda *"
+                    style="border-radius: 3px; font-size: 0.9rem;"
+                    >
+                </b-form-input>
+                </b-form-group>
 
-                                <b-form-group 
-                                id="input-group-4"
-                                >
-                                <b-form-input 
-                                    id="input-4" 
-                                    v-model="form.email"
-                                    placeholder="Alamat email Anda"
-                                    style="border-radius: 3px; font-size: 0.9rem;"
-                                    >
-                                </b-form-input>
+                <b-form-group 
+                id="input-group-4"
+                >
+                <b-form-input 
+                    id="input-4" 
+                    v-model="form.email"
+                    placeholder="Alamat email Anda"
+                    style="border-radius: 3px; font-size: 0.9rem;"
+                    >
+                </b-form-input>
 
-                                </b-form-group>
-                                <b-form-group 
-                                id="input-group-5"
-                                >
-                                <b-form-input 
-                                    id="input-5" 
-                                    v-model="form.instagram"
-                                    placeholder="ID instagram Anda"
-                                    style="border-radius: 3px; font-size: 0.9rem;"
-                                    >
-                                </b-form-input>
-                                </b-form-group>
+                </b-form-group>
+                <b-form-group 
+                id="input-group-5"
+                >
+                <b-form-input 
+                    id="input-5" 
+                    v-model="form.instagram"
+                    placeholder="ID instagram Anda"
+                    style="border-radius: 3px; font-size: 0.9rem;"
+                    >
+                </b-form-input>
+                </b-form-group>
 
-                                <b-form-group 
-                                id="input-group-6"
-                                >
-                                <b-form-select
-                                    id="input-6" 
-                                    v-model="selected_infaq" 
-                                    :options="infaq_option" 
-                                    required
-                                    style="border-radius: 3px; font-size: 0.9rem;"
-                                    >
-                                </b-form-select>
-                                </b-form-group>
+                <b-form-group 
+                id="input-group-6"
+                >
+                <b-form-select
+                    id="input-6" 
+                    v-model="selected_infaq" 
+                    :options="infaq_option" 
+                    required
+                    style="border-radius: 3px; font-size: 0.9rem;"
+                    >
+                </b-form-select>
+                </b-form-group>
 
-                                <b-form-group 
-                                id="input-group-6a"
-                                v-if="selected_infaq == 'Isi sendiri'" 
-                                >
-                                    <currency-formatter v-model="form.infaq"></currency-formatter>
-                                </b-form-group>
+                <b-form-group 
+                id="input-group-6a"
+                v-if="selected_infaq == 'Isi sendiri'" 
+                >
+                    <currency-formatter v-model="form.infaq" placeholder="Jumlah infaq Anda"></currency-formatter>
+                </b-form-group>
 
-                                <b-button block type="submit" style="background-color: #d71149; border-color:  #d71149; border-radius: 3px">DAFTAR</b-button>
-                            </div>
+                <b-button block type="submit" style="background-color: #d71149; border-color:  #d71149; border-radius: 3px">DAFTAR</b-button>
+            </div>
 
-                            <div class="state-1" v-if="state_form">
-                                <div style="margin-bottom: 10px;">
-                                    <b-button @click="backStateForm" style="background-color: #d71149; border-color:  #d71149; border-radius: 3px; font-size: 12px;">BACK</b-button>
-                                </div>
-                                <b-form-group
-                                label="Tentukan password demi keamanan akun Anda"
-                                id="input-group-7"
-                                >
-                                <b-form-input 
-                                    id="input-7"
-                                    v-model="form.password" 
-                                    required
-                                    type="password"
-                                    placeholder="Password"
-                                    style="border-radius: 3px; font-size: 0.9rem;"
-                                    >
-                                </b-form-input>
-                                </b-form-group>
+            <div class="state-1" v-if="state_form">
+                <div style="margin-bottom: 10px;">
+                    <b-button @click="backStateForm" style="background-color: #d71149; border-color:  #d71149; border-radius: 3px; font-size: 12px;">BACK</b-button>
+                </div>
+                <b-form-group
+                label="Tentukan password demi keamanan akun Anda"
+                id="input-group-7"
+                >
+                <b-form-input 
+                    id="input-7"
+                    v-model="form.password" 
+                    required
+                    type="password"
+                    placeholder="Password"
+                    style="border-radius: 3px; font-size: 0.9rem;"
+                    >
+                </b-form-input>
+                </b-form-group>
 
-                                <b-form-group
-                                id="input-group-8"
-                                >
-                                <b-form-input 
-                                    id="input-8"
-                                    v-model="form.confirm_password" 
-                                    required
-                                    type="password"
-                                    placeholder="Confirm password"
-                                    style="border-radius: 3px; font-size: 0.9rem;"
-                                    >
-                                </b-form-input>
-                                </b-form-group>
+                <b-form-group
+                id="input-group-8"
+                >
+                <b-form-input 
+                    id="input-8"
+                    v-model="form.confirm_password" 
+                    required
+                    type="password"
+                    placeholder="Confirm password"
+                    style="border-radius: 3px; font-size: 0.9rem;"
+                    >
+                </b-form-input>
+                </b-form-group>
 
-                                <b-button block type="submit" style="background-color: #d71149; border-color:  #d71149; border-radius: 3px; padding:0; padding-bottom:0.9vh">
-                                    <div v-if="!loading">
-                                        SELESAI
-                                    </div>
-                                    <b-spinner v-else style="width: 1rem; height: 1rem;"  label="Loading"></b-spinner>
-                                </b-button>
-
-                            </div>
-
-                            <!-- <p class="link-login-desc">
-                                Sudah punya akun? <a class="link-login" href="/login">Masuk</a>
-                            </p> -->
-                        </b-form>
+                <b-button block type="submit" style="background-color: #d71149; border-color:  #d71149; border-radius: 3px; padding:0; padding-bottom:0.9vh">
+                    <div v-if="!loading">
+                        SELESAI
                     </div>
-                </b-col>
-            </b-row>
-        </div>
+                    <b-spinner v-else style="width: 1rem; height: 1rem;"  label="Loading"></b-spinner>
+                </b-button>
+
+            </div>
+
+            <p class="link-login-desc">
+                Sudah punya akun? <a class="link-login" href="/login">Masuk</a>
+            </p>
+        </b-form>
     </div>
 </template>
 
 <script>
-    import NavBar from "./NavBar"
     import CurrencyFormatter from "./CurrencyFormatter"
-    import Alert from "./Alert"
     import axios from 'axios'
 
     export default {
@@ -284,8 +264,10 @@
                     .then((res) => {
                         console.log(res)
                         this.access_token = res.data.data.access_token
+                        localStorage.access_token = res.data.data.access_token
                         this.role = res.data.data.role
-                        this.$router.push("thank-you")
+                        localStorage.role = res.data.data.role
+                        this.$router.push("/oka/upload-infaq")
                     })
                     .catch((error) => {
                         this.state_form = 0
@@ -329,17 +311,11 @@
                 this.bornYearValidity = /^\d+$/.test(this.form.born_year)
             }
         },
-        components: {NavBar, CurrencyFormatter, Alert}
+        components: {CurrencyFormatter}
     };
 </script>
 
 <style scoped>
-    .orang-baik {
-        display: none;
-        padding: 50px;
-        padding-top: 120px;
-    }
-
     .form-box {
         margin: auto;
         margin-top: 30px;
@@ -368,11 +344,6 @@
         margin-top: 10px;
     }
 
-    .greeting {
-        margin-top: 20px;
-        font-size: 1em;
-    }
-
     .available{
         color: green;
     }
@@ -391,33 +362,11 @@
             box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24);
             padding: 30px;
         }
-        .main-div {
-            background-color: #f2f3f4; height: 100%;
-            overflow: auto;
-        }
-        .main-row {
-            margin-top: 70px;
-        }
-        .orang-baik {
-            display: block; 
-            font: 400 .9375rem Open Sans,sans-serif; 
-            font-weight: 300!important;
-        }
-        .greeting {
-            width: 50%;
-        }
         .greeting-2 {
             display: none;
         }
         .form-box > h5 {
             text-align: center; margin: 20px; margin-bottom: 30px;
         }
-    }
-
-    @media screen and (min-width: 1366px) {
-        .main-content {
-            width: 1366px;
-            margin: auto;
-        }        
     }
 </style>
