@@ -6,6 +6,7 @@ import BiodataOka from "./components/pages/BiodataOka"
 import StatusInfaq from "./components/pages/StatusInfaq"
 import UploadInfaq from "./components/pages/UploadInfaq"
 import AdminUploadInfaq from "./components/pages/AdminUploadInfaq"
+import VerifikasiInfaq from "./components/pages/VerifikasiInfaq"
 
 const routes = [
     {
@@ -37,6 +38,11 @@ const routes = [
         path: '/admin/status-infaq',
         name: 'status-infaq',
         component: StatusInfaq
+    },
+    {
+        path: '/admin/verifikasi-infaq',
+        name: 'konfirmasi-infaq',
+        component: VerifikasiInfaq
     },
     {
         path: '/oka/upload-infaq',
