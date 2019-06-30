@@ -234,7 +234,6 @@
                 let json = await result.json()
                 this.monthly_infaq = json.data
                 this.totalRows = this.monthly_infaq.length
-                console.log(this.monthly_infaq)
             },
             info(item, index, button) {
                 this.infoModal.title = `Biodata ${index}`

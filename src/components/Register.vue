@@ -254,7 +254,6 @@
                     role: "oka",
                     born_year: this.form.born_year
                 }
-                console.log(payload)
                 this.loading = true
                 this.register(payload)
             },
@@ -262,7 +261,6 @@
                 const path = process.env.VUE_APP_BASE_API + 'user/register'
                 axios.post(path, payload)
                     .then((res) => {
-                        console.log(res)
                         this.access_token = res.data.data.access_token
                         localStorage.access_token = res.data.data.access_token
                         this.role = res.data.data.role
@@ -275,7 +273,6 @@
                         this.showMessage = true
                         this.loading = false
                         this.$router.push("register")
-                        console.log(error)
                     });
             },
             getInfaq() {
@@ -304,7 +301,6 @@
                         this.whatsapp_availability = res.data.data
                     })
                     .catch((error) => {
-                        console.log(error)
                     });
             },
             validateBornYear() {

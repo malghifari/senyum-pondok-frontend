@@ -135,7 +135,6 @@
                 let json = await result.json()
                 this.okas = json.data
                 this.totalRows = this.okas.length
-                console.log(this.okas)
             },
             info(item, index, button) {
                 this.infoModal.title = `Row index: ${index}`

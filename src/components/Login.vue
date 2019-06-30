@@ -82,11 +82,9 @@
         },
         methods: {
             login(payload) {
-                console.log(process.env.VUE_APP_BASE_API)
                 const path = process.env.VUE_APP_BASE_API + 'user/login'
                 axios.post(path, payload)
                     .then((res) => {
-                        console.log(res);
                         this.access_token = res.data.data.access_token
                         localStorage.access_token = res.data.data.access_token
                         this.role = res.data.data.role
@@ -102,7 +100,6 @@
                         this.showMessage = true
                         this.loading = false
                         this.$emit('input', this.message)
-                        console.log(error)
                     });
             },
             onSubmit(evt) {

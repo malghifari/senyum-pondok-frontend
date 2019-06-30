@@ -172,14 +172,12 @@ export default {
                 this.showMessage = true
                 this.loading = false
                 this.$emit('input', this.message)
-                console.log(response);
             })
             .catch(err => {
                 this.message = "Upload infaq gagal. Coba beberapa saat lagi. Hubungi teknis (087848471386)"
                 this.showMessage = true
                 this.loading = false
                 this.$emit('input', this.message)
-                console.log(err)
             })
         },
         setImage: function(output) {

@@ -283,7 +283,6 @@
                 this.totalRows = this.transaction.length
             },
             openActionModal(item,button) {
-                console.log(item)
                 this.actionModal.img = item.item.filename
                 this.actionModal.user = item.item.user
                 this.actionModal.status = item.value
@@ -347,15 +346,11 @@
                     'id' : this.actionModal.idTransaction,
                     'verified':false
                 }
-                console.log(data)
-                console.log(uri)
                 axios.post(uri, data, {headers: headers})
                 .then((response) => {
-                    console.log(response)
                     this.$router.go();
                 })
                 .catch((error) => {
-                    console.log(error)
                 })
                 this.resetActionModal();
             },
@@ -370,15 +365,11 @@
                     'id' : this.actionModal.idTransaction,
                     'verified':true
                 }
-                console.log(data)
-                console.log(uri)
                 axios.post(uri, data, {headers: headers})
                 .then((response) => {
-                    console.log(response)
                     this.$router.go();
                 })
                 .catch((error) => {
-                    console.log(error)
                 })
                 this.resetActionModal();
             },
@@ -392,7 +383,6 @@
                 }
             },
             timeConvert(date){
-                console.log(date)
                 var asiaTime = date.toLocaleString("en-US", {timeZone: "Asia/Jakarta"});
                 asiaTime = new Date(asiaTime);
                 return asiaTime.toLocaleString()
