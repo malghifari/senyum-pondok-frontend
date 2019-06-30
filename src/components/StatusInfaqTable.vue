@@ -158,7 +158,7 @@
                 access_token: localStorage.access_token ? localStorage.access_token : '',
                 monthly_infaq: [],
                 monthly_infaq_fields: [
-                    {key: 'month_year', label: 'Waktu', sortable: true, sortDirection: 'desc'},
+                    {key: 'month_year', label: 'Periode', sortable: true, sortDirection: 'desc'},
                     {key: 'user', label: 'OKA'},
                     {key: 'user.infaq', label: 'Infaq Rutin', sortable: true, sortDirection: 'asc'},
                     {key: 'temp_infaq', label: 'Infaq Bulan Ini', sortable: true, sortDirection: 'desc'},

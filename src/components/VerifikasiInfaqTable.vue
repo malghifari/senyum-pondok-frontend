@@ -26,6 +26,19 @@
                 </b-col>
             </b-col>
         </b-row>
+        
+        <b-row>
+            <b-col md="6" class="my-1">
+                <b-col md="8">
+                    <b-input-group>
+                        <b-form-input v-model="filter_time" placeholder="Filter waktu"></b-form-input>
+                        <b-input-group-append>
+                        <b-button :disabled="!filter_time" @click="filter_time = ''">Bersihkan</b-button>
+                        </b-input-group-append>
+                    </b-input-group>
+                </b-col>
+            </b-col>
+        </b-row>
 
         <br />
         <b-table
