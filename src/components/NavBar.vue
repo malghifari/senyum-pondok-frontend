@@ -13,6 +13,7 @@
                 <b-navbar-nav class="font-style">
                     <b-nav-item href="/admin/biodata-oka" v-if="access_token !== '' && role == 'admin'">Biodata OKA</b-nav-item>
                     <b-nav-item href="/admin/status-infaq" v-if="access_token !== '' && role == 'admin'">Status Infaq</b-nav-item>
+                    <b-nav-item href="/admin/verifikasi-infaq" v-if="access_token !== '' && role == 'admin'">Verifikasi Infaq</b-nav-item>
                     <b-nav-item href="/oka/upload-infaq" v-if="access_token !== '' && role == 'oka'">Upload Infaq</b-nav-item>
                 </b-navbar-nav>
 

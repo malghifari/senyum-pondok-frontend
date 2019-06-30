@@ -5,6 +5,7 @@ import ThankYou from "./components/pages/ThankYou"
 import BiodataOka from "./components/pages/BiodataOka"
 import StatusInfaq from "./components/pages/StatusInfaq"
 import UploadInfaq from "./components/pages/UploadInfaq"
+import VerifikasiInfaq from "./components/pages/VerifikasiInfaq"
 
 const routes = [
     {
@@ -36,6 +37,11 @@ const routes = [
         path: '/admin/status-infaq',
         name: 'status-infaq',
         component: StatusInfaq
+    },
+    {
+        path: '/admin/Verifikasi-infaq',
+        name: 'konfirmasi-infaq',
+        component: VerifikasiInfaq
     },
     {
         path: '/oka/upload-infaq',
