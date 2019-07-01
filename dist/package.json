@@ -1,0 +1,10 @@
+{
+    "name": "pondok-senyum-indonesia",
+    "version": "1.0.0",
+    "description": "information-system",
+    "author": "Mochamad Alghifari",
+    "private": true,
+    "scripts": {
+      "postinstall": "npm install express connect-history-api-fallback express-sslify"
+    }
+}
