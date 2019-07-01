@@ -16,6 +16,7 @@
                     required
                     placeholder="Nomor Whatsapp OKA"
                     style="border-radius: 3px; font-size: 0.9rem;"
+                    type="number"
                     >
                 </b-form-input>
             </b-form-group>

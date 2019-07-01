@@ -32,6 +32,7 @@
                     style="border-radius: 3px; font-size: 0.9rem;"
                     :state="whatsapp_availability"
                     @keyup="is_whatsapp_available"
+                    type="number"
                     >
                 </b-form-input>
                 <b-form-invalid-feedback :state="whatsapp_availability">
@@ -272,6 +273,7 @@
                         this.message = "Mohon maaf pendaftaran gagal. Hubungi kami untuk bantuan 087848471386 (WA)"
                         this.showMessage = true
                         this.loading = false
+                        this.$emit('input', this.message)
                         this.$router.push("register")
                     });
             },

@@ -1,8 +1,12 @@
 <template>
     <div class="main-div">
         <nav-bar></nav-bar>
-        <alert :message=message colour="success" v-if="message == 'Infaq berhasil disubmit. Tim kami akan segera menghubungi Anda jika infaq Anda sudah diverifikasi :)'"></alert>
-        <alert :message=message colour="danger" v-if="message == 'Upload infaq gagal. Coba beberapa saat lagi. Hubungi teknis (087848471386)'"></alert>
+        <modal
+            :message="passed_message"
+            :variant="variant"
+            :handleOk="(variant == 'success') ? afterOkReload : afterOkHide"
+            >
+        </modal>
         <div class="main-content">
             <b-row class="main-row justify-content-md-center">
                 <b-col sm="4">
@@ -16,12 +20,14 @@
 <script>
     import NavBar from "../NavBar"
     import UploadInfaq from "../UploadInfaq"
-    import Alert from "../Alert"
+    import Modal from "../Modal"
 
     export default {
         data() {
             return {
                 message: '',
+                variant: '',
+                passed_message: ''
             }
         },
         mounted() {
@@ -33,7 +39,29 @@
                 this.$router.push('/');
             }
         },
-        components: {NavBar, UploadInfaq, Alert}
+        watch: {
+            message(new_message) {
+                if (new_message == 'Infaq berhasil disubmit') {
+                    this.variant = "success"
+                } else if (new_message == '') {
+                    return
+                } else {
+                    this.variant = "danger"
+                }
+                this.passed_message = this.message
+                this.message = ''
+                this.$bvModal.show('bv-modal-example')
+            },
+        },
+        methods: {
+            afterOkReload() {
+                window.location.reload();
+            },
+            afterOkHide() {
+                this.$bvModal.hide('bv-modal-example')
+            },
+        },
+        components: {NavBar, UploadInfaq, Modal}
     }
 </script>
 

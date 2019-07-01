@@ -1,7 +1,12 @@
 <template>
     <div class="main-div">
         <nav-bar></nav-bar>
-        <alert :message=message colour="danger" v-if="message"></alert>
+        <modal
+            :message="passed_message"
+            variant="danger"
+            :handleOk="afterOkHide"
+            >
+        </modal>
         <div class="main-content">
             <b-row class="main-row justify-content-md-center">
                 <b-col sm="4">
@@ -15,12 +20,13 @@
 <script>
     import NavBar from "../NavBar"
     import Login from "../Login"
-    import Alert from "../Alert"
+    import Modal from "../Modal"
 
     export default {
         data() {
             return {
-                message: ''
+                message: '',
+                passed_message: ''
             }
         },
         mounted() {
@@ -32,7 +38,22 @@
                 this.$router.push('/admin/biodata-oka');
             }
         },
-        components: {NavBar, Login, Alert}
+        watch: {
+            message(new_message) {
+                if (new_message == '') {
+                    return
+                }
+                this.passed_message = this.message
+                this.message = ''
+                this.$bvModal.show('bv-modal-example')
+            },
+        },
+        methods: {
+            afterOkHide() {
+                this.$bvModal.hide('bv-modal-example')
+            },
+        },
+        components: {NavBar, Login, Modal}
     }
 </script>
 
