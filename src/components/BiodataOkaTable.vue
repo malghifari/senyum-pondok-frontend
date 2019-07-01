@@ -31,22 +31,27 @@
         :sort-desc.sync="sortDesc"
         :sort-direction="sortDirection"
         @filtered="onFiltered"
+        :busy="isBusy"
         >
-        <template slot="name" slot-scope="row">
-            {{ row.value }}
-        </template>
+            <template slot="name" slot-scope="row">
+                {{ row.value }}
+            </template>
 
-        <template slot="born_year" slot-scope="row">
-            {{ this_year - row.value }}
-        </template>
+            <template slot="born_year" slot-scope="row">
+                {{ this_year - row.value }}
+            </template>
 
-        <template slot="row-details" slot-scope="row">
-            <b-card>
-            <ul>
-                <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
-            </ul>
-            </b-card>
-        </template>
+            <template slot="row-details" slot-scope="row">
+                <b-card>
+                <ul>
+                    <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value }}</li>
+                </ul>
+                </b-card>
+            </template>
+            <div slot="table-busy" class="text-center text-danger my-2">
+                <b-spinner class="align-middle"></b-spinner>
+                <strong>Loading...</strong>
+            </div>
         </b-table>
 
         <b-row>
@@ -105,7 +110,8 @@
                     title: '',
                     content: ''
                 },
-                this_year : new Date().getFullYear()
+                this_year : new Date().getFullYear(),
+                isBusy: true,
             }
         },
         computed: {
@@ -135,6 +141,7 @@
                 let json = await result.json()
                 this.okas = json.data
                 this.totalRows = this.okas.length
+                this.isBusy = false;
             },
             info(item, index, button) {
                 this.infoModal.title = `Row index: ${index}`

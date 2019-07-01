@@ -51,6 +51,7 @@
         :sort-by.sync="sortBy"
         :sort-desc.sync="sortDesc"
         :sort-direction="sortDirection"
+        :busy="isBusy"
         >
 
             <template slot="created_at" slot-scope="row">
@@ -76,7 +77,10 @@
                 </ul>
                 </b-card>
             </template>
-            
+            <div slot="table-busy" class="text-center text-danger my-2">
+                <b-spinner class="align-middle"></b-spinner>
+                <strong>Loading...</strong>
+            </div>
         </b-table>
 
         <b-row>
@@ -227,7 +231,8 @@
                     user: '',
                     status: '',
                     nominal: ''
-                }
+                },
+                isBusy: true,
             }
         },
         computed: {
@@ -281,6 +286,7 @@
                 let json = await result.json()
                 this.transaction = json.data
                 this.totalRows = this.transaction.length
+                this.isBusy = false;
             },
             openActionModal(item,button) {
                 this.actionModal.img = item.item.filename

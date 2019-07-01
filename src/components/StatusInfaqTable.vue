@@ -49,6 +49,7 @@
         :sort-by.sync="sortBy"
         :sort-desc.sync="sortDesc"
         :sort-direction="sortDirection"
+        :busy="isBusy"
         >
 
             <template slot="user" slot-scope="row">
@@ -68,6 +69,10 @@
                 </ul>
                 </b-card>
             </template>
+            <div slot="table-busy" class="text-center text-danger my-2">
+                <b-spinner class="align-middle"></b-spinner>
+                <strong>Loading...</strong>
+            </div>
             
         </b-table>
 
@@ -186,7 +191,8 @@
                     { value: 'True', text: 'Lunas' },
                     { value: 'False', text: 'Belum Lunas' },
                 ],
-                this_year: new Date().getFullYear()
+                this_year: new Date().getFullYear(),
+                isBusy: true,
             }
         },
         computed: {
@@ -234,6 +240,7 @@
                 let json = await result.json()
                 this.monthly_infaq = json.data
                 this.totalRows = this.monthly_infaq.length
+                this.isBusy = false;
             },
             info(item, index, button) {
                 this.infoModal.title = `Biodata ${index}`
