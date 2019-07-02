@@ -5,13 +5,13 @@
         </div>
         <br />
 
-        <b-col>
+        <b-col v-if="!isBusySummary">
             <b-row>
                 <b-col md="4">
                     Jumlah OrangTuaAsuh
                 </b-col>
                 <b-col md="4">
-                    : 50
+                    : {{totalOka}}
                 </b-col>
             </b-row>
 
@@ -20,7 +20,7 @@
                     Jumlah Infaq/bulan yang Diharapkan
                 </b-col>
                 <b-col md="4">
-                    : Rp30.000.000,00
+                    : <currency-formatter-on-table :value="totalInfaqPerMonth"></currency-formatter-on-table>
                 </b-col>
             </b-row>
 
@@ -29,10 +29,16 @@
                     Jumlah Infaq Terkumpul Sejak Awal
                 </b-col>
                 <b-col md="4">
-                    : Rp150.000.000,00
+                    : <currency-formatter-on-table :value="totalInfaqAllTime"></currency-formatter-on-table>
                 </b-col>
             </b-row>        
         </b-col>
+        <b-row style="text-align: center; vertical-align: center" v-if="isBusySummary">
+            <div class="text-center text-danger my-2" style="margin: auto">
+                <b-spinner class="align-middle"></b-spinner>
+                <strong>Loading...</strong>
+            </div>
+        </b-row>
 
         <hr>
 
@@ -130,6 +136,10 @@
                     { value: 'False', text: 'Belum Lunas' },
                 ],
                 isBusy: true,
+                isBusySummary: true,
+                totalOka: '',
+                totalInfaqPerMonth: '',
+                totalInfaqAllTime: ''
             }
         },
         computed: {
@@ -156,6 +166,7 @@
         },
         mounted() {
             this.load_table()
+            this.load_summary()
             this.totalRows = this.summary.length
         },
         methods: {
@@ -173,6 +184,21 @@
                 this.totalRows = this.summary.length
                 this.isBusy = false;
             },
+            async load_summary() {
+                let access_token = localStorage.access_token;
+                let result = await fetch(process.env.VUE_APP_BASE_API + 'user/summary', {
+                    method: 'GET',
+                    headers: {
+                        Authorization: access_token,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                let json = await result.json()
+                this.totalOka = json.data['total_oka']
+                this.totalInfaqPerMonth = json.data['total_infaq_per_month']
+                this.totalInfaqAllTime = json.data['total_infaq_all_time']
+                this.isBusySummary = false;
+            }
         },
         components: {CurrencyFormatterOnTable}
     }
