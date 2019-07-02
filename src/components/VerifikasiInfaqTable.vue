@@ -69,6 +69,10 @@
                 {{ getStatusVerifikasi(row.value) }} 
                 </b-button>
             </template>
+            
+            <template slot="nominal" slot-scope="row">
+                <currency-formatter-on-table :value="row.value"></currency-formatter-on-table>
+            </template>
 
             <template slot="row-details" slot-scope="row">
                 <b-card>
@@ -104,8 +108,8 @@
         <!-- Action Modal  -->
         <b-modal :id="actionModal.id" :title="actionModal.title">
             <pre>
-                Nama OKA : {{actionModal.user.name}}<br>
-                Nominal : {{actionModal.nominal}}<br>
+                Nama OKA : {{actionModal.user.name}}
+                Nominal : <currency-formatter-on-table :value="actionModal.nominal"></currency-formatter-on-table>
                 Status : <span :class="getClassStatus(actionModal.status)">{{ getStatusVerifikasi(actionModal.status) }}</span>
             </pre>
 
@@ -187,6 +191,7 @@
 </template>
 
 <script>
+    import CurrencyFormatterOnTable from "./CurrencyFormatterOnTable"
     import axios from 'axios'
     export default {
         data() {
@@ -394,6 +399,7 @@
                 return asiaTime.toLocaleString()
             }
         },
+        components: {CurrencyFormatterOnTable}
     }
 </script>
 

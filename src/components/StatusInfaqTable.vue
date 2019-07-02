@@ -62,6 +62,14 @@
                 {{ row.value == "True" ? 'Lunas' : 'Belum Lunas' }}
             </template>
 
+            <template slot="user.infaq" slot-scope="row">
+                <currency-formatter-on-table :value="row.value"></currency-formatter-on-table>
+            </template>
+
+            <template slot="temp_infaq" slot-scope="row">
+                <currency-formatter-on-table :value="row.value"></currency-formatter-on-table>
+            </template>
+
             <template slot="row-details" slot-scope="row">
                 <b-card>
                 <ul>
@@ -157,6 +165,7 @@
 </template>
 
 <script>
+    import CurrencyFormatterOnTable from "./CurrencyFormatterOnTable"
     export default {
         data() {
             return {
@@ -262,6 +271,7 @@
                 return filtered
             }
         },
+        components: {CurrencyFormatterOnTable}
     }
 </script>
 

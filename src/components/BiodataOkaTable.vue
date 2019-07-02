@@ -41,6 +41,10 @@
                 {{ this_year - row.value }}
             </template>
 
+            <template slot="infaq" slot-scope="row">
+                <currency-formatter-on-table :value="row.value"></currency-formatter-on-table>
+            </template>
+
             <template slot="row-details" slot-scope="row">
                 <b-card>
                 <ul>
@@ -81,6 +85,7 @@
 </template>
 
 <script>
+    import CurrencyFormatterOnTable from "./CurrencyFormatterOnTable"
     export default {
         data() {
             return {
@@ -158,6 +163,7 @@
                 this.currentPage = 1
             }
         },
+        components: {CurrencyFormatterOnTable}
     }
 </script>
 
