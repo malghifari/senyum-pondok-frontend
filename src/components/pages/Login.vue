@@ -35,7 +35,7 @@
                 this.$router.push('/oka/upload-infaq');
             }
             if (role == 'admin') {
-                this.$router.push('/admin/biodata-oka');
+                this.$router.push('/admin/summary');
             }
         },
         watch: {

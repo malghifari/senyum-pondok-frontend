@@ -1,13 +1,9 @@
 <template>
     <div class="main-div">
         <nav-bar></nav-bar>
-        <alert :message=message colour="danger" v-if="message"></alert>
         <div class="main-content">
             <b-row class="main-row justify-content-md-center">
-                <orang-baik></orang-baik>
-                <b-col sm="4">
-                    <register v-model="message"></register>
-                </b-col>
+                <summary-table></summary-table>
             </b-row>
         </div>
     </div>
@@ -15,23 +11,22 @@
 
 <script>
     import NavBar from "../NavBar"
-    import Register from "../Register"
-    import Alert from "../Alert"
-    import OrangBaik from "../OrangBaik"
-
+    import SummaryTable from "../SummaryTable"
     export default {
         data() {
             return {
-                message: ''
             }
         },
         mounted() {
             let role = localStorage.role;
-            if (role == 'oka') {
-                this.$router.push('/oka/upload-infaq');
+            if (!localStorage.access_token) {
+                this.$router.push('/');
+            }
+            if (role !== 'admin') {
+                this.$router.push('/');
             }
         },
-        components: {NavBar, Register, Alert, OrangBaik}
+        components: {NavBar, SummaryTable}
     }
 </script>
 
@@ -40,7 +35,7 @@
         margin-right: 0; 
         margin-left: 0
     }
-
+    
     @media screen and (min-width: 540px) {
         .main-div {
             background-color: #f2f3f4;

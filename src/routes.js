@@ -7,6 +7,7 @@ import StatusInfaq from "./components/pages/StatusInfaq"
 import UploadInfaq from "./components/pages/UploadInfaq"
 import AdminUploadInfaq from "./components/pages/AdminUploadInfaq"
 import VerifikasiInfaq from "./components/pages/VerifikasiInfaq"
+import Summary from "./components/pages/Summary"
 
 const routes = [
     {
@@ -53,6 +54,11 @@ const routes = [
         path: '/admin/upload-infaq',
         name: 'admin-upload-infaq',
         component: AdminUploadInfaq
+    },
+    {
+        path: '/admin/summary',
+        name: 'admin-summary',
+        component: Summary
     }
 ];
 
