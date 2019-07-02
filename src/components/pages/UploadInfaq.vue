@@ -41,7 +41,7 @@
         },
         watch: {
             message(new_message) {
-                if (new_message == 'Infaq berhasil disubmit') {
+                if (new_message == 'Infaq berhasil disubmit. Tim kami akan segera menghubungi Anda jika infaq Anda sudah diverifikasi :)') {
                     this.variant = "success"
                 } else if (new_message == '') {
                     return
