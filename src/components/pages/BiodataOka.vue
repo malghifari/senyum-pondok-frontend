@@ -22,8 +22,8 @@
             if (!localStorage.access_token) {
                 this.$router.push('/');
             }
-            if (role !== 'admin') {
-                this.$router.push('/');
+            if (role == 'oka') {
+                this.$router.push('/oka/upload-infaq');
             }
         },
         components: {NavBar, BiodataOkaTable}

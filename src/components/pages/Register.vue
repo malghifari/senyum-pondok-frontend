@@ -30,6 +30,9 @@
             if (role == 'oka') {
                 this.$router.push('/oka/upload-infaq');
             }
+            if (role == 'admin') {
+                this.$router.push('/admin/summary');
+            }
         },
         components: {NavBar, Register, Alert, OrangBaik}
     }

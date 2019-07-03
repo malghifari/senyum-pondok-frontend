@@ -35,8 +35,8 @@
             if (!localStorage.access_token) {
                 this.$router.push('/');
             }
-            if (role !== 'oka') {
-                this.$router.push('/');
+            if (role == 'admin') {
+                this.$router.push('/admin/summary');
             }
         },
         watch: {
