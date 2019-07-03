@@ -156,7 +156,13 @@ export default {
                 this.$emit('input', this.message)
             })
             .catch(err => {
-                this.message = "Upload infaq gagal. Coba beberapa saat lagi. Hubungi teknis (087848471386)"
+                if (err.response['status'] == "403") {
+                    localStorage.access_token = ''
+                    localStorage.role = ''
+                    this.message = "Upload infaq gagal. Sesi login telah berakhir"
+                } else {
+                    this.message = "Upload infaq gagal. Coba beberapa saat lagi. Hubungi teknis (087848471386)"
+                }
                 this.showMessage = true
                 this.loading = false
                 this.$emit('input', this.message)

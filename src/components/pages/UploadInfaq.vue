@@ -4,7 +4,7 @@
         <modal
             :message="passed_message"
             :variant="variant"
-            :handleOk="(variant == 'success') ? afterOkReload : afterOkHide"
+            :handleOk="(variant == 'success' || not_logged_in) ? afterOkReload : afterOkHide"
             >
         </modal>
         <div class="main-content">
@@ -27,7 +27,8 @@
             return {
                 message: '',
                 variant: '',
-                passed_message: ''
+                passed_message: '',
+                not_logged_in: false
             }
         },
         mounted() {
@@ -47,6 +48,9 @@
                     return
                 } else {
                     this.variant = "danger"
+                    if (new_message == 'Upload infaq gagal. Sesi login telah berakhir') {
+                        this.not_logged_in = true
+                    }
                 }
                 this.passed_message = this.message
                 this.message = ''

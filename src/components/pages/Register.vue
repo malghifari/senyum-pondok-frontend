@@ -27,10 +27,10 @@
         },
         mounted() {
             let role = localStorage.role;
-            if (role == 'oka') {
+            if (role == 'oka' && localStorage.access_token) {
                 this.$router.push('/oka/upload-infaq');
             }
-            if (role == 'admin') {
+            if (role == 'admin' && localStorage.access_token) {
                 this.$router.push('/admin/summary');
             }
         },
