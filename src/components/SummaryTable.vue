@@ -178,13 +178,12 @@
                         Authorization: access_token,
                         'Content-Type': 'application/json'
                     }
-                }).then((response) => {
-                    if (response.status == "403") {
-                        localStorage.access_token = ''
-                        localStorage.role = ''
-                        this.$router.push('/')
-                    }
                 })
+                if (result.status == "403") {
+                    localStorage.access_token = ''
+                    localStorage.role = ''
+                    this.$router.push('/')
+                }
                 let json = await result.json()
                 this.summary = json.data
                 this.totalRows = this.summary.length
@@ -198,13 +197,12 @@
                         Authorization: access_token,
                         'Content-Type': 'application/json'
                     }
-                }).then((response) => {
-                    if (response.status == "403") {
-                        localStorage.access_token = ''
-                        localStorage.role = ''
-                        this.$router.push('/')
-                    }
                 })
+                if (result.status == "403") {
+                    localStorage.access_token = ''
+                    localStorage.role = ''
+                    this.$router.push('/')
+                }
                 let json = await result.json()                  
                 this.totalOka = json.data['total_oka']
                 this.totalInfaqPerMonth = json.data['total_infaq_per_month']
