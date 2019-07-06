@@ -49,6 +49,7 @@
         :sort-by.sync="sortBy"
         :sort-desc.sync="sortDesc"
         :sort-direction="sortDirection"
+        :busy="isBusy"
         >
 
             <template slot="user" slot-scope="row">
@@ -61,6 +62,14 @@
                 {{ row.value == "True" ? 'Lunas' : 'Belum Lunas' }}
             </template>
 
+            <template slot="user.infaq" slot-scope="row">
+                <currency-formatter-on-table :value="row.value"></currency-formatter-on-table>
+            </template>
+
+            <template slot="temp_infaq" slot-scope="row">
+                <currency-formatter-on-table :value="row.value"></currency-formatter-on-table>
+            </template>
+
             <template slot="row-details" slot-scope="row">
                 <b-card>
                 <ul>
@@ -68,6 +77,10 @@
                 </ul>
                 </b-card>
             </template>
+            <div slot="table-busy" class="text-center text-danger my-2">
+                <b-spinner class="align-middle"></b-spinner>
+                <strong>Loading...</strong>
+            </div>
             
         </b-table>
 
@@ -152,13 +165,14 @@
 </template>
 
 <script>
+    import CurrencyFormatterOnTable from "./CurrencyFormatterOnTable"
     export default {
         data() {
             return {
                 access_token: localStorage.access_token ? localStorage.access_token : '',
                 monthly_infaq: [],
                 monthly_infaq_fields: [
-                    {key: 'month_year', label: 'Waktu', sortable: true, sortDirection: 'desc'},
+                    {key: 'month_year', label: 'Periode', sortable: true, sortDirection: 'desc'},
                     {key: 'user', label: 'OKA'},
                     {key: 'user.infaq', label: 'Infaq Rutin', sortable: true, sortDirection: 'asc'},
                     {key: 'temp_infaq', label: 'Infaq Bulan Ini', sortable: true, sortDirection: 'desc'},
@@ -186,7 +200,8 @@
                     { value: 'True', text: 'Lunas' },
                     { value: 'False', text: 'Belum Lunas' },
                 ],
-                this_year: new Date().getFullYear()
+                this_year: new Date().getFullYear(),
+                isBusy: true,
             }
         },
         computed: {
@@ -234,7 +249,7 @@
                 let json = await result.json()
                 this.monthly_infaq = json.data
                 this.totalRows = this.monthly_infaq.length
-                console.log(this.monthly_infaq)
+                this.isBusy = false;
             },
             info(item, index, button) {
                 this.infoModal.title = `Biodata ${index}`
@@ -256,6 +271,7 @@
                 return filtered
             }
         },
+        components: {CurrencyFormatterOnTable}
     }
 </script>
 

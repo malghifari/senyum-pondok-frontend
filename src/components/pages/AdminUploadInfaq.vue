@@ -3,14 +3,14 @@
         <nav-bar></nav-bar>
         <modal
             :message="passed_message"
-            variant="danger"
-            :handleOk="afterOkHide"
+            :variant="variant"
+            :handleOk="(variant == 'success') ? afterOkReload : afterOkHide"
             >
         </modal>
         <div class="main-content">
             <b-row class="main-row justify-content-md-center">
                 <b-col sm="4">
-                    <login v-model="message"></login>
+                    <admin-upload-infaq v-model="message"></admin-upload-infaq>
                 </b-col>
             </b-row>
         </div>
@@ -19,29 +19,33 @@
 
 <script>
     import NavBar from "../NavBar"
-    import Login from "../Login"
+    import AdminUploadInfaq from "../AdminUploadInfaq"
     import Modal from "../Modal"
-
     export default {
         data() {
             return {
                 message: '',
+                variant: '',
                 passed_message: ''
             }
         },
         mounted() {
             let role = localStorage.role;
-            if (role == 'oka' && localStorage.access_token) {
-                this.$router.push('/oka/upload-infaq');
+            if (!localStorage.access_token) {
+                this.$router.push('/');
             }
-            if (role == 'admin' && localStorage.access_token) {
-                this.$router.push('/admin/summary');
+            if (role == 'oka') {
+                this.$router.push('/oka/upload-infaq');
             }
         },
         watch: {
             message(new_message) {
-                if (new_message == '') {
+                if (new_message == 'Infaq berhasil disubmit') {
+                    this.variant = "success"
+                } else if (new_message == '') {
                     return
+                } else {
+                    this.variant = "danger"
                 }
                 this.passed_message = this.message
                 this.message = ''
@@ -49,11 +53,14 @@
             },
         },
         methods: {
+            afterOkReload() {
+                window.location.reload();
+            },
             afterOkHide() {
                 this.$bvModal.hide('bv-modal-example')
             },
         },
-        components: {NavBar, Login, Modal}
+        components: {NavBar, AdminUploadInfaq, Modal}
     }
 </script>
 

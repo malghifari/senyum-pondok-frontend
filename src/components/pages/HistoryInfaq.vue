@@ -3,7 +3,7 @@
         <nav-bar></nav-bar>
         <div class="main-content">
             <b-row class="main-row justify-content-md-center">
-                <status-infaq-table></status-infaq-table>
+                <history-infaq-table></history-infaq-table>
             </b-row>
         </div>
     </div>
@@ -11,7 +11,7 @@
 
 <script>
     import NavBar from "../NavBar"
-    import StatusInfaqTable from "../StatusInfaqTable"
+    import HistoryInfaqTable from "../HistoryInfaqTable"
     export default {
         data() {
             return {
@@ -22,11 +22,11 @@
             if (!localStorage.access_token) {
                 this.$router.push('/');
             }
-            if (role == 'oka') {
-                this.$router.push('/oka/upload-infaq');
+            if (role !== 'oka') {
+                this.$router.push('/');
             }
         },
-        components: {NavBar, StatusInfaqTable}
+        components: {NavBar, HistoryInfaqTable}
     }
 </script>
 

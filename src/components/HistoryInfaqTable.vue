@@ -1,26 +1,14 @@
 <template>
     <div class="form-box">
         <div style="text-align: center; font-size: 4vh; font-weight: bold">
-            History Transaksi Infaq
+            History Infaq
         </div>
         <br />
         <!-- User Interface controls -->
         <b-row>
             <b-col md="6" class="my-1">
-                <b-col md="8">
-                    <b-input-group>
-                        <b-form-input v-model="filter_name" placeholder="Filter nama"></b-form-input>
-                        <b-input-group-append>
-                        <b-button :disabled="!filter_name" @click="filter_name = ''">Bersihkan</b-button>
-                        </b-input-group-append>
-                    </b-input-group>
-                </b-col>
-            </b-col>
-            <b-col md="6" class="my-1">
-                <b-col md="6">
-                </b-col>
-                <b-col md="8">
-                    <b-form-group label-cols-sm="4" class="mb-0">
+                <b-col md="10">
+                    <b-form-group label-cols-sm="5" class="mb-0" label="Status Infaq">
                         <b-form-select v-model="filter_status" :options="status_options"></b-form-select>
                     </b-form-group>
                 </b-col>
@@ -51,7 +39,7 @@
             </template>
             
             <template slot="verified" slot-scope="row">
-                <b-button :variant="getColor(row.value)" @click="openActionModal(row,$event.target)">
+                <b-button :variant="getColor(row.value)" @click="openInfoModal(row,$event.target)">
                 {{ getStatusVerifikasi(row.value) }} 
                 </b-button>
             </template>
@@ -84,87 +72,34 @@
                 ></b-pagination>
             </b-col>
         </b-row>
-        <!-- Action Modal  -->
-        <b-modal :id="actionModal.id" :title="actionModal.title">
-            <pre>
-                Nama OKA : {{actionModal.user.name}}<br>
-                Nominal : {{actionModal.nominal}}<br>
-                Status : <span :class="getClassStatus(actionModal.status)">{{ getStatusVerifikasi(actionModal.status) }}</span>
-            </pre>
-
-            <img  v-bind:src="'https://storage.googleapis.com/img-infaq-tf/' + actionModal.img " id="img-konfirmasi">
-           <template slot="modal-footer" slot-scope="{ ok, cancel}" @hide="resetActionModal">
-                <b-button size="sm" variant="success" @click="accept_action">
-                    Terima
-                </b-button>
-                <b-button size="sm" variant="danger" @click="reject_action">
-                    Tolak
-                </b-button>
-                <b-button size="sm" variant="success" @click="resetActionModal">
-                    Tutup
-                </b-button>
-
-           </template>
-        </b-modal>
 
         <!-- Info modal -->
         <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
             <b-row>
                 <b-col cols="4">
-                    ID OKA
+                    Tanggal Infaq
                 </b-col>
                 <b-col>
-                    {{infoModal.content.id}}
+                    {{timeConvert(infoModal.content.created_at)}}
                 </b-col>
             </b-row>
             <b-row>
                 <b-col cols="4">
-                    Nama
+                    Nominal
                 </b-col>
                 <b-col>
-                    {{infoModal.content.name}}
+                    {{infoModal.content.nominal}}
                 </b-col>
             </b-row>
             <b-row>
                 <b-col cols="4">
-                    No. Whatsapp
+                    Status
                 </b-col>
                 <b-col>
-                    {{infoModal.content.whatsapp}}
+                    <span :class="getClassStatus(infoModal.content.verified)">{{ getStatusVerifikasi(infoModal.content.verified) }}</span>
                 </b-col>
             </b-row>
-            <b-row>
-                <b-col cols="4">
-                    Umur
-                </b-col>
-                <b-col>
-                    {{ this_year - infoModal.content.born_year}}
-                </b-col>
-            </b-row>
-            <b-row>
-                <b-col cols="4">
-                    Email
-                </b-col>
-                <b-col>
-                    {{infoModal.content.email}}
-                </b-col>
-            </b-row>
-            <b-row>
-                <b-col cols="4">
-                    Instagram
-                </b-col>
-                <b-col>
-                    {{infoModal.content.instagram}}
-                </b-col>
-            </b-row>
-            <b-row>
-                <b-col cols="4">
-                    Alamat
-                </b-col>
-                <b-col>
-                    {{infoModal.content.address}}
-                </b-col>
-            </b-row>
+            <img  v-bind:src="'https://storage.googleapis.com/img-infaq-tf/' + infoModal.content.filename " id="img-konfirmasi">
         </b-modal>
     </div>                
 </template>
@@ -178,7 +113,6 @@
                 transaction: [],
                 transaction_fields: [
                     {key: 'created_at', label: 'Tanggal', sortable: true, sortDirection: 'desc'},
-                    {key: 'monthly_infaq.month_year', label: 'Periode', sortable: true, sortDirection: 'desc'},
                     {key: 'nominal', label: 'Nominal', sortable: true, sortDirection: 'asc'},
                     {key: 'verified', label: 'Status'},
                 ],
@@ -193,8 +127,13 @@
                 filter: null,
                 infoModal: {
                     id: 'info-modal',
-                    title: '',
-                    content: ''
+                    title: 'Detail Infaq',
+                    content: {
+                        created_at: '',
+                        nominal: '',
+                        filename: '',
+                        verified: ''
+                    }
                 },
                 filter_time: '',
                 filter_status: '',
@@ -205,15 +144,7 @@
                     { value: 'false', text: 'Verifikasi Gagal' },
                     { value: 'null', text: 'Belum Terverifikasi' },
                 ],
-                this_year: new Date().getFullYear(),
-                actionModal: {
-                    id: 'actionModal',
-                    img: '',
-                    title: 'Verifikasi Infaq',
-                    user: '',
-                    status: '',
-                    nominal: ''
-                }
+                this_year: new Date().getFullYear()
             }
         },
         computed: {
@@ -268,22 +199,18 @@
                 this.transaction = json.data
                 this.totalRows = this.transaction.length
             },
-            openActionModal(item,button) {
+            openInfoModal(item,button) {
                 console.log(item)
-                this.actionModal.img = item.item.filename
-                this.actionModal.user = item.item.user
-                this.actionModal.status = item.value
-                this.actionModal.nominal = item.item.nominal
-                this.actionModal.idTransaction = item.item.id
-                this.$root.$emit('bv::show::modal',this.actionModal.id,button)
+                this.infoModal.content = item.item;
+                this.$root.$emit('bv::show::modal',this.infoModal.id,button)
             },
             info(item, index, button) {
                 this.infoModal.title = `Biodata ${index}`
                 this.infoModal.content = item
+                console.log(this.infoModal);
                 this.$root.$emit('bv::show::modal', this.infoModal.id, button)
             },
             resetInfoModal() {
-                this.infoModal.title = ''
                 this.infoModal.content = ''
             },
             multiFilter(el) {
@@ -292,6 +219,8 @@
                     filtered = el.month_year.toLowerCase().indexOf(this.filter_time.toLowerCase()) > -1
                 }
                 if (this.filter_status != '') {
+                    console.log(this.filter_status);
+                    console.log(el.paid_off_status);
                     filtered = filtered && el.paid_off_status.toLowerCase().indexOf(this.filter_status.toLowerCase()) > -1
                 }
                 return filtered
@@ -313,60 +242,6 @@
                 } else {
                     return "nullverified"
                 }
-            },
-            resetActionModal(){
-                this.actionModal.img = '';
-                this.actionModal.user = '';
-                this.actionModal.status = '';
-                this.actionModal.nominal = '';
-                this.actionModal.idTransaction = '';
-                this.$root.$emit('bv::hide::modal',this.actionModal.id)
-            },
-            reject_action(){
-                var access_token = localStorage.access_token
-                var headers = {
-                    'Authorization': access_token,
-                    'Content-Type': 'application/json'
-                }
-                var uri = process.env.VUE_APP_BASE_API + 'transaction/update/verified'
-                var data = {
-                    'id' : this.actionModal.idTransaction,
-                    'verified':false
-                }
-                console.log(data)
-                console.log(uri)
-                axios.post(uri, data, {headers: headers})
-                .then((response) => {
-                    console.log(response)
-                    this.$router.go();
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
-                this.resetActionModal();
-            },
-            accept_action(){
-                var access_token = localStorage.access_token
-                var headers = {
-                    'Authorization': access_token,
-                    'Content-Type': 'application/json'
-                }
-                var uri = process.env.VUE_APP_BASE_API + 'transaction/update/verified'
-                var data = {
-                    'id' : this.actionModal.idTransaction,
-                    'verified':true
-                }
-                console.log(data)
-                console.log(uri)
-                axios.post(uri, data, {headers: headers})
-                .then((response) => {
-                    console.log(response)
-                    this.$router.go();
-                })
-                .catch((error) => {
-                    console.log(error)
-                })
-                this.resetActionModal();
             },
             getStatusVerifikasi(value){
                 if(value == true){

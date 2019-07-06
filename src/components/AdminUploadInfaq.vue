@@ -1,9 +1,26 @@
 <template>
     <div class="form-box">
         <h5>
-            Upload Infaq Anda
+            Upload Infaq OKA
         </h5>
         <b-form @submit="onSubmit">
+            <b-form-group 
+                id="input-group-1"
+                label-cols="12"
+                label="Nomor Whatsapp OKA"
+                label-for="input-1"
+                >
+                <b-form-input 
+                    id="input-1" 
+                    v-model="form.whatsapp"
+                    required
+                    placeholder="Nomor Whatsapp OKA"
+                    style="border-radius: 3px; font-size: 0.9rem;"
+                    type="number"
+                    >
+                </b-form-input>
+            </b-form-group>
+
             <b-form-group 
                 id="input-group-2"
                 label-cols="12"
@@ -99,6 +116,7 @@ export default {
     data() {
         return {
             form: {
+                whatsapp: '',
                 nominal: '',
                 month: new Date().getMonth() + 1,
                 year: new Date().getFullYear()
@@ -140,6 +158,7 @@ export default {
             let access_token = localStorage.access_token;
             let fd = new FormData()
             fd.append('image', this.image)
+            fd.append('whatsapp', this.form.whatsapp)
             fd.append('nominal', this.form.nominal)
             fd.append('month_year', this.form.year + '-' + this.form.month)
             const path = process.env.VUE_APP_BASE_API + 'transaction/create';
@@ -150,19 +169,13 @@ export default {
                 }
             })
             .then(response => {
-                this.message = "Infaq berhasil disubmit. Tim kami akan segera menghubungi Anda jika infaq Anda sudah diverifikasi :)"
+                this.message = "Infaq berhasil disubmit"
                 this.showMessage = true
                 this.loading = false
                 this.$emit('input', this.message)
             })
             .catch(err => {
-                if (err.response['status'] == "403") {
-                    localStorage.access_token = ''
-                    localStorage.role = ''
-                    this.message = "Upload infaq gagal. Sesi login telah berakhir"
-                } else {
-                    this.message = "Upload infaq gagal. Coba beberapa saat lagi. Hubungi teknis (087848471386)"
-                }
+                this.message = "Upload infaq gagal. Coba beberapa saat lagi. Hubungi teknis (087848471386)"
                 this.showMessage = true
                 this.loading = false
                 this.$emit('input', this.message)

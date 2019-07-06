@@ -26,6 +26,19 @@
                 </b-col>
             </b-col>
         </b-row>
+        
+        <b-row>
+            <b-col md="6" class="my-1">
+                <b-col md="8">
+                    <b-input-group>
+                        <b-form-input v-model="filter_time" placeholder="Filter waktu"></b-form-input>
+                        <b-input-group-append>
+                        <b-button :disabled="!filter_time" @click="filter_time = ''">Bersihkan</b-button>
+                        </b-input-group-append>
+                    </b-input-group>
+                </b-col>
+            </b-col>
+        </b-row>
 
         <br />
         <b-table
@@ -38,6 +51,7 @@
         :sort-by.sync="sortBy"
         :sort-desc.sync="sortDesc"
         :sort-direction="sortDirection"
+        :busy="isBusy"
         >
 
             <template slot="created_at" slot-scope="row">
@@ -55,6 +69,10 @@
                 {{ getStatusVerifikasi(row.value) }} 
                 </b-button>
             </template>
+            
+            <template slot="nominal" slot-scope="row">
+                <currency-formatter-on-table :value="row.value"></currency-formatter-on-table>
+            </template>
 
             <template slot="row-details" slot-scope="row">
                 <b-card>
@@ -63,7 +81,10 @@
                 </ul>
                 </b-card>
             </template>
-            
+            <div slot="table-busy" class="text-center text-danger my-2">
+                <b-spinner class="align-middle"></b-spinner>
+                <strong>Loading...</strong>
+            </div>
         </b-table>
 
         <b-row>
@@ -87,8 +108,8 @@
         <!-- Action Modal  -->
         <b-modal :id="actionModal.id" :title="actionModal.title">
             <pre>
-                Nama OKA : {{actionModal.user.name}}<br>
-                Nominal : {{actionModal.nominal}}<br>
+                Nama OKA : {{actionModal.user.name}}
+                Nominal : <currency-formatter-on-table :value="actionModal.nominal"></currency-formatter-on-table>
                 Status : <span :class="getClassStatus(actionModal.status)">{{ getStatusVerifikasi(actionModal.status) }}</span>
             </pre>
 
@@ -170,6 +191,7 @@
 </template>
 
 <script>
+    import CurrencyFormatterOnTable from "./CurrencyFormatterOnTable"
     import axios from 'axios'
     export default {
         data() {
@@ -214,7 +236,8 @@
                     user: '',
                     status: '',
                     nominal: ''
-                }
+                },
+                isBusy: true,
             }
         },
         computed: {
@@ -268,9 +291,9 @@
                 let json = await result.json()
                 this.transaction = json.data
                 this.totalRows = this.transaction.length
+                this.isBusy = false;
             },
             openActionModal(item,button) {
-                console.log(item)
                 this.actionModal.img = item.item.filename
                 this.actionModal.user = item.item.user
                 this.actionModal.status = item.value
@@ -334,15 +357,11 @@
                     'id' : this.actionModal.idTransaction,
                     'verified':false
                 }
-                console.log(data)
-                console.log(uri)
                 axios.post(uri, data, {headers: headers})
                 .then((response) => {
-                    console.log(response)
                     this.$router.go();
                 })
                 .catch((error) => {
-                    console.log(error)
                 })
                 this.resetActionModal();
             },
@@ -357,15 +376,11 @@
                     'id' : this.actionModal.idTransaction,
                     'verified':true
                 }
-                console.log(data)
-                console.log(uri)
                 axios.post(uri, data, {headers: headers})
                 .then((response) => {
-                    console.log(response)
                     this.$router.go();
                 })
                 .catch((error) => {
-                    console.log(error)
                 })
                 this.resetActionModal();
             },
@@ -379,12 +394,12 @@
                 }
             },
             timeConvert(date){
-                console.log(date)
                 var asiaTime = date.toLocaleString("en-US", {timeZone: "Asia/Jakarta"});
                 asiaTime = new Date(asiaTime);
                 return asiaTime.toLocaleString()
             }
         },
+        components: {CurrencyFormatterOnTable}
     }
 </script>
 

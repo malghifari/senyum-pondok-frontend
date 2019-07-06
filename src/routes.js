@@ -5,7 +5,10 @@ import ThankYou from "./components/pages/ThankYou"
 import BiodataOka from "./components/pages/BiodataOka"
 import StatusInfaq from "./components/pages/StatusInfaq"
 import UploadInfaq from "./components/pages/UploadInfaq"
+import AdminUploadInfaq from "./components/pages/AdminUploadInfaq"
 import VerifikasiInfaq from "./components/pages/VerifikasiInfaq"
+import Summary from "./components/pages/Summary"
+import HistoryInfaq from "./components/pages/HistoryInfaq"
 
 const routes = [
     {
@@ -39,7 +42,7 @@ const routes = [
         component: StatusInfaq
     },
     {
-        path: '/admin/Verifikasi-infaq',
+        path: '/admin/verifikasi-infaq',
         name: 'konfirmasi-infaq',
         component: VerifikasiInfaq
     },
@@ -49,9 +52,19 @@ const routes = [
         component: UploadInfaq
     },
     {
-        path: '/oka/history-transaksi-infaq',
+        path: '/oka/history-infaq',
         name: 'history-transaksi-infaq',
-        component: HistoryTransaksiInfaq
+        component: HistoryInfaq
+    },
+    {
+        path: '/admin/upload-infaq',
+        name: 'admin-upload-infaq',
+        component: AdminUploadInfaq
+    },
+    {
+        path: '/admin/summary',
+        name: 'admin-summary',
+        component: Summary
     }
 ];
 

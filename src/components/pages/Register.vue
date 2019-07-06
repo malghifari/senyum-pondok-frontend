@@ -27,11 +27,11 @@
         },
         mounted() {
             let role = localStorage.role;
-            if (role == 'oka') {
+            if (role == 'oka' && localStorage.access_token) {
                 this.$router.push('/oka/upload-infaq');
             }
-            if (role == 'admin') {
-                this.$router.push('/admin/biodata-oka');
+            if (role == 'admin' && localStorage.access_token) {
+                this.$router.push('/admin/summary');
             }
         },
         components: {NavBar, Register, Alert, OrangBaik}

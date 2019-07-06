@@ -3,7 +3,7 @@
         <nav-bar></nav-bar>
         <div class="main-content">
             <b-row class="main-row justify-content-md-center">
-                <transaksi-infaq-table></transaksi-infaq-table>
+                <summary-table></summary-table>
             </b-row>
         </div>
     </div>
@@ -11,7 +11,7 @@
 
 <script>
     import NavBar from "../NavBar"
-    import TransaksiInfaqTable from "../TransaksiInfaqTable"
+    import SummaryTable from "../SummaryTable"
     export default {
         data() {
             return {
@@ -22,11 +22,11 @@
             if (!localStorage.access_token) {
                 this.$router.push('/');
             }
-            if (role !== 'oka') {
-                this.$router.push('/');
+            if (role == 'oka') {
+                this.$router.push('/oka/upload-infaq');
             }
         },
-        components: {NavBar, TransaksiInfaqTable}
+        components: {NavBar, SummaryTable}
     }
 </script>
 

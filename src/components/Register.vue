@@ -32,6 +32,7 @@
                     style="border-radius: 3px; font-size: 0.9rem;"
                     :state="whatsapp_availability"
                     @keyup="is_whatsapp_available"
+                    type="number"
                     >
                 </b-form-input>
                 <b-form-invalid-feedback :state="whatsapp_availability">
@@ -254,7 +255,6 @@
                     role: "oka",
                     born_year: this.form.born_year
                 }
-                console.log(payload)
                 this.loading = true
                 this.register(payload)
             },
@@ -262,7 +262,6 @@
                 const path = process.env.VUE_APP_BASE_API + 'user/register'
                 axios.post(path, payload)
                     .then((res) => {
-                        console.log(res)
                         this.access_token = res.data.data.access_token
                         localStorage.access_token = res.data.data.access_token
                         this.role = res.data.data.role
@@ -274,8 +273,8 @@
                         this.message = "Mohon maaf pendaftaran gagal. Hubungi kami untuk bantuan 087848471386 (WA)"
                         this.showMessage = true
                         this.loading = false
+                        this.$emit('input', this.message)
                         this.$router.push("register")
-                        console.log(error)
                     });
             },
             getInfaq() {
@@ -304,7 +303,6 @@
                         this.whatsapp_availability = res.data.data
                     })
                     .catch((error) => {
-                        console.log(error)
                     });
             },
             validateBornYear() {
