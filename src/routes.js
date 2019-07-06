@@ -47,6 +47,11 @@ const routes = [
         path: '/oka/upload-infaq',
         name: 'upload-infaq',
         component: UploadInfaq
+    },
+    {
+        path: '/oka/history-transaksi-infaq',
+        name: 'history-transaksi-infaq',
+        component: HistoryTransaksiInfaq
     }
 ];
 
