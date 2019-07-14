@@ -8,6 +8,7 @@ import UploadInfaq from "./components/pages/UploadInfaq"
 import AdminUploadInfaq from "./components/pages/AdminUploadInfaq"
 import VerifikasiInfaq from "./components/pages/VerifikasiInfaq"
 import Summary from "./components/pages/Summary"
+import ChangePassword from "./components/pages/ChangePassword"
 
 const routes = [
     {
@@ -49,6 +50,11 @@ const routes = [
         path: '/oka/upload-infaq',
         name: 'upload-infaq',
         component: UploadInfaq
+    },
+    {
+        path: '/oka/change-password',
+        name: 'change-password',
+        component: ChangePassword
     },
     {
         path: '/admin/upload-infaq',
