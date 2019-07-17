@@ -44,6 +44,12 @@
                 </b-button>
             </template>
 
+            <template slot="action" slot-scope="row">
+                <b-button variant="danger" @click="showConfirmMsgBox(row)" v-if="!row.item.verified">
+                    Delete
+                </b-button>
+            </template>
+
             <template slot="row-details" slot-scope="row">
                 <b-card>
                 <ul>
@@ -51,6 +57,7 @@
                 </ul>
                 </b-card>
             </template>
+
             
         </b-table>
 
@@ -74,7 +81,7 @@
         </b-row>
 
         <!-- Info modal -->
-        <b-modal :id="infoModal.id" :title="infoModal.title" ok-only @hide="resetInfoModal">
+        <b-modal :id="infoModal.id" :title="infoModal.title" ok-only>
             <b-row>
                 <b-col cols="4">
                     Tanggal Infaq
@@ -99,6 +106,7 @@
                     <span :class="getClassStatus(infoModal.content.verified)">{{ getStatusVerifikasi(infoModal.content.verified) }}</span>
                 </b-col>
             </b-row>
+            <pre v-if="infoModal.content.verified == false">Silakan kontak admin untuk menanyakan status verifikasi</pre>
             <img  v-bind:src="'https://storage.googleapis.com/img-infaq-tf/' + infoModal.content.filename " id="img-konfirmasi">
         </b-modal>
     </div>                
@@ -115,6 +123,7 @@
                     {key: 'created_at', label: 'Tanggal', sortable: true, sortDirection: 'desc'},
                     {key: 'nominal', label: 'Nominal', sortable: true, sortDirection: 'asc'},
                     {key: 'verified', label: 'Status'},
+                    {key: 'action', label: 'Actions'}
                 ],
                 filtered_transaction: [],
                 totalRows: 1,
@@ -159,9 +168,6 @@
             multi_transaction: function () {
                 var filtered = this.transaction.filter((el) => {
                     let filtered = true
-                    if (this.filter_time != '') {
-                        filtered = el.month_year.toLowerCase().indexOf(this.filter_time.toLowerCase()) > -1
-                    }
                     if (this.filter_status != '') {
                         var toString;
                         if(el.verified == null){
@@ -170,9 +176,6 @@
                             toString = el.verified.toString();
                         }
                         filtered = filtered && toString.toLowerCase().indexOf(this.filter_status.toLowerCase()) > -1
-                    }
-                    if (this.filter_name != '') {
-                        filtered = filtered && el.user.name.toLowerCase().indexOf(this.filter_name.toLowerCase()) > -1
                     }
                     return filtered
                 })
@@ -209,9 +212,6 @@
                 this.infoModal.content = item
                 console.log(this.infoModal);
                 this.$root.$emit('bv::show::modal', this.infoModal.id, button)
-            },
-            resetInfoModal() {
-                this.infoModal.content = ''
             },
             multiFilter(el) {
                 let filtered = ''
@@ -257,6 +257,41 @@
                 var asiaTime = date.toLocaleString("en-US", {timeZone: "Asia/Jakarta"});
                 asiaTime = new Date(asiaTime);
                 return asiaTime.toLocaleString()
+            },
+            showConfirmMsgBox(row){
+                let vm = this;
+                this.$bvModal.msgBoxConfirm('Please confirm that you want to delete this transaction.', {
+                  title: 'Please Confirm',
+                  size: 'sm',
+                  buttonSize: 'sm',
+                  okVariant: 'danger',
+                  okTitle: 'YES',
+                  cancelTitle: 'NO',
+                  footerClass: 'p-2',
+                  hideHeaderClose: false,
+                  centered: true
+                })
+                  .then(value => {
+                    if(value == true){
+                        let uri = process.env.VUE_APP_BASE_API + "transaction/delete";
+                        let params = {
+                            'id': row.item.id
+                        }
+                        axios.post(uri,params,{headers: {
+                                                'Authorization': localStorage.access_token,
+                                                'Content-Type': 'application/json'
+                        }})
+                            .then(function(response){
+                                console.log(response);
+                            })
+                            .catch(function(error){
+                                console.log(error.response);
+                            })
+                    }
+                  })
+                  .catch(err => {
+                    // An error occurred
+                  })
             }
         },
     }
