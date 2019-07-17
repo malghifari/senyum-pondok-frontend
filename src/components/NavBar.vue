@@ -18,6 +18,7 @@
                     <b-nav-item href="/admin/upload-infaq" v-if="access_token !== '' && role == 'admin'">Upload Infaq OKA</b-nav-item>
                     <b-nav-item href="/oka/upload-infaq" v-if="access_token !== '' && role == 'oka'">Upload Infaq</b-nav-item>
                     <b-nav-item href="/oka/history-infaq" v-if="access_token !== '' && role == 'oka'">History Infaq</b-nav-item>
+                    <b-nav-item href="/oka/change-password" v-if="access_token !== '' && role == 'oka'">Ganti Password</b-nav-item>
                 </b-navbar-nav>
 
                 <b-navbar-nav class="ml-auto">
