@@ -8,9 +8,7 @@ import UploadInfaq from "./components/pages/UploadInfaq"
 import AdminUploadInfaq from "./components/pages/AdminUploadInfaq"
 import VerifikasiInfaq from "./components/pages/VerifikasiInfaq"
 import Summary from "./components/pages/Summary"
-
 import HistoryInfaq from "./components/pages/HistoryInfaq"
-
 import ChangePassword from "./components/pages/ChangePassword"
 
 
@@ -56,15 +54,14 @@ const routes = [
         component: UploadInfaq
     },
     {
-<<<<<<< HEAD
         path: '/oka/history-infaq',
         name: 'history-transaksi-infaq',
         component: HistoryInfaq
-=======
+    },
+    {  
         path: '/oka/change-password',
         name: 'change-password',
         component: ChangePassword
->>>>>>> e2067b4cd22610461422ee332ea3da82b6d39831
     },
     {
         path: '/admin/upload-infaq',
